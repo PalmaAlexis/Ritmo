@@ -1,7 +1,7 @@
 export enum TaskPriorityValues {
-  low = "LOW",
-  medium = "MEDIUM",
-  high = "HIGH",
+  low = 'LOW',
+  medium = 'MEDIUM',
+  high = 'HIGH',
 }
 
 export class TaskPriority {
@@ -24,11 +24,7 @@ export class TaskPriority {
     return new TaskPriority(priority as TaskPriorityValues);
   }
   static from(priority: string): TaskPriority {
-    if (
-      !Object.values(TaskPriorityValues).includes(
-        priority as TaskPriorityValues,
-      )
-    )
+    if (!Object.values(TaskPriorityValues).includes(priority as TaskPriorityValues))
       throw new Error(`Not valid Task priority: ${priority}`);
     return new TaskPriority(priority as TaskPriorityValues);
   }

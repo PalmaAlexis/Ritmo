@@ -1,44 +1,32 @@
-import { LabelColor } from "./color.vo";
-import { LabelId } from "./id.vo";
-import { LabelName } from "./name.vo";
+import type { LabelColor } from './color.vo';
+import { LabelId } from './id.vo';
+import type { LabelName } from './name.vo';
 
 export class Label {
   private constructor(
     private readonly id: LabelId,
     private name: LabelName,
     private color: LabelColor,
-    private active: boolean,
+    private active: boolean
   ) {}
 
   // === Actions ===
-  static create(name: LabelName, color: LabelColor): Label {
+  static new(name: LabelName, color: LabelColor): Label {
     return new Label(LabelId.new(), name, color, true);
   }
-  rename(name: LabelName): void {
-    this.canBeModified();
-    this.name = name;
-  }
-  changeColor(color: LabelColor): void {
-    this.canBeModified();
-    this.color = color;
-  }
   delete(): void {
+    if (!this.active) throw new Error('Label is already inactive');
     this.canBeModified();
     this.active = false;
   }
 
   // === Queries ===
   canBeModified(): void {
-    if (!this.isActive()) throw new Error("Only active labels can be modified");
+    if (!this.isActive()) throw new Error('Only active labels can be modified');
   }
 
   // === Utils ===
-  static rehydrate(
-    id: LabelId,
-    name: LabelName,
-    color: LabelColor,
-    active: boolean,
-  ): Label {
+  static rehydrate(id: LabelId, name: LabelName, color: LabelColor, active: boolean): Label {
     return new Label(id, name, color, active);
   }
   toPrimitive() {

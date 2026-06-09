@@ -1,9 +1,9 @@
 export enum ProjectStatusValues {
-  toDo = "TO_DO",
-  inProgress = "IN_PROGRESS",
-  done = "DONE",
-  archived = "ACHIVED",
-  deleted = "DELETED",
+  toDo = 'TO_DO',
+  inProgress = 'IN_PROGRESS',
+  done = 'DONE',
+  archived = 'ACHIVED',
+  deleted = 'DELETED',
 }
 
 export class ProjectStatus {
@@ -50,9 +50,7 @@ export class ProjectStatus {
     return new ProjectStatus(value as ProjectStatusValues);
   }
   from(value: string): ProjectStatus {
-    if (
-      !Object.values(ProjectStatusValues).includes(value as ProjectStatusValues)
-    )
+    if (!Object.values(ProjectStatusValues).includes(value as ProjectStatusValues))
       throw new Error(`Not valid Project status: ${value}`);
     return new ProjectStatus(value as ProjectStatusValues);
   }

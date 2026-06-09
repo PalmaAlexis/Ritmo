@@ -1,4 +1,4 @@
-import { StringUtils } from "../../../shared/utils/string-utils";
+import { StringUtils } from '../../../shared/utils/string-utils';
 
 export class LabelName {
   private static MAX_LENGTH = 10;
@@ -8,7 +8,7 @@ export class LabelName {
     return new LabelName(StringUtils.normalize(label));
   }
   static from(label: string): LabelName {
-    if (!label || label.length === 0) throw new Error("Label cannot be empty");
+    if (!label || label.length === 0) throw new Error('Label cannot be empty');
     const normalized = StringUtils.normalize(label);
 
     if (normalized.length > this.MAX_LENGTH)

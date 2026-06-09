@@ -1,4 +1,4 @@
-import { StringUtils } from "../../../../shared/utils/string-utils";
+import { StringUtils } from '../../../../shared/utils/string-utils';
 
 export class Title {
   private static MAX_LENGTH = 24;
@@ -8,7 +8,7 @@ export class Title {
     return new Title(StringUtils.normalize(title));
   }
   static from(title: string): Title {
-    if (!title || title.length === 0) throw new Error("Title cannot be empty");
+    if (!title || title.length === 0) throw new Error('Title cannot be empty');
     const normalized = StringUtils.normalize(title);
 
     if (normalized.length > this.MAX_LENGTH)

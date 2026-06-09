@@ -1,10 +1,10 @@
-import { LabelId } from "../label/id.vo";
-import { ProjectId } from "../project/id.vo";
-import { TaskDescription } from "./description.vo";
-import { TaskId } from "./id.vo";
-import { TaskPriority } from "./priority.vo";
-import { TaskStatus } from "./status.vo";
-import { TaskTitle } from "./title.vo";
+import type { LabelId } from '../label/id.vo';
+import type { ProjectId } from '../project/id.vo';
+import type { TaskDescription } from './description.vo';
+import { TaskId } from './id.vo';
+import type { TaskPriority } from './priority.vo';
+import { TaskStatus } from './status.vo';
+import type { TaskTitle } from './title.vo';
 
 export class Task {
   private constructor(
@@ -17,7 +17,7 @@ export class Task {
     private startedAt: Date | null,
     private finishedAt: Date | null,
     private labelsIds: LabelId[],
-    private description: TaskDescription,
+    private description: TaskDescription
   ) {}
 
   // === Actions ===
@@ -68,52 +68,45 @@ export class Task {
   }
   addLabel(labelId: LabelId): void {
     // === Avoid duplicated labels ===
-    if (!this.labelsIds.some((id) => id.equals(labelId)))
-      this.labelsIds.push(labelId);
+    if (!this.labelsIds.some((id) => id.equals(labelId))) this.labelsIds.push(labelId);
   }
   deleteLabel(labelId: LabelId): void {
     const originalLength = this.labelsIds.length;
     this.labelsIds = this.labelsIds.filter((id) => !id.equals(labelId));
 
     if (this.labelsIds.length === originalLength)
-      throw new Error("Label does not exist in the Task");
+      throw new Error('Label does not exist in the Task');
   }
 
   // === Queries ===
   private canBeToDo(): void {
-    if (this.status.isToDo()) throw new Error("Task is already set to-do");
-    else if (!this.status.isInProgress())
-      throw new Error("Only started tasks can be set to do");
+    if (this.status.isToDo()) throw new Error('Task is already set to-do');
+    else if (!this.status.isInProgress()) throw new Error('Only started tasks can be set to do');
   }
   private canBeInProgress(): void {
-    if (this.status.isInProgress())
-      throw new Error("Task is already in progress");
-    else if (!this.status.isToDo())
-      throw new Error("Only to-do tasks can be started");
+    if (this.status.isInProgress()) throw new Error('Task is already in progress');
+    else if (!this.status.isToDo()) throw new Error('Only to-do tasks can be started');
   }
   private canBeReopened(): void {
-    if (this.status.isInProgress()) throw new Error("Task is already opened");
-    else if (!this.status.isDone())
-      throw new Error("Only done tasks can be reopened");
+    if (this.status.isInProgress()) throw new Error('Task is already opened');
+    else if (!this.status.isDone()) throw new Error('Only done tasks can be reopened');
   }
   private canBeDone(): void {
-    if (this.status.isDone()) throw new Error("Task is already done");
-    else if (!this.status.isInProgress())
-      throw new Error("Only started tasks can be set done");
+    if (this.status.isDone()) throw new Error('Task is already done');
+    else if (!this.status.isInProgress()) throw new Error('Only started tasks can be set done');
   }
   private canBeArchived(): void {
-    if (this.status.isArchived()) throw new Error("Task is already archived");
+    if (this.status.isArchived()) throw new Error('Task is already archived');
     else if (this.status.isDone() || this.status.isDeleted())
-      throw new Error("Only to-do and started tasks can be archived");
+      throw new Error('Only to-do and started tasks can be archived');
   }
   private canBeDeleted(): void {
-    if (this.status.isDeleted()) throw new Error("Task is already deleted");
-    else if (this.status.isDone())
-      throw new Error("Completed tasks cannot be deleted");
+    if (this.status.isDeleted()) throw new Error('Task is already deleted');
+    else if (this.status.isDone()) throw new Error('Completed tasks cannot be deleted');
   }
   private canBeModified(): void {
     if (!this.status.isInProgress() && !this.status.isToDo())
-      throw new Error("Only to-do and started tasks can be renamed");
+      throw new Error('Only to-do and started tasks can be renamed');
   }
 
   // === Utils ===
@@ -122,7 +115,7 @@ export class Task {
     title: TaskTitle,
     priority: TaskPriority,
     labelsIds: LabelId[],
-    description: TaskDescription,
+    description: TaskDescription
   ): Task {
     return new Task(
       TaskId.new(),
@@ -134,7 +127,7 @@ export class Task {
       null,
       null,
       labelsIds,
-      description,
+      description
     );
   }
   rehydrate(
@@ -147,7 +140,7 @@ export class Task {
     startedAt: Date | null,
     finishedAt: Date | null,
     labelsIds: LabelId[],
-    description: TaskDescription,
+    description: TaskDescription
   ): Task {
     return new Task(
       id,
@@ -159,7 +152,7 @@ export class Task {
       startedAt,
       finishedAt,
       labelsIds,
-      description,
+      description
     );
   }
   toPrimitives() {

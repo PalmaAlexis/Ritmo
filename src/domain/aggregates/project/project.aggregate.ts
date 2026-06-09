@@ -1,7 +1,7 @@
-import { ProjectDescription } from "./description.vo";
-import { ProjectId } from "./id.vo";
-import { ProjectStatus } from "./status.vo";
-import { ProjectTitle } from "./title.vo";
+import type { ProjectDescription } from './description.vo';
+import { ProjectId } from './id.vo';
+import { ProjectStatus } from './status.vo';
+import type { ProjectTitle } from './title.vo';
 
 export class Project {
   private constructor(
@@ -11,7 +11,7 @@ export class Project {
     private createdAt: Date,
     private startedAt: Date | null,
     private finishedAt: Date | null,
-    private description: ProjectDescription,
+    private description: ProjectDescription
   ) {}
 
   // === Actions ===
@@ -52,35 +52,29 @@ export class Project {
 
   // === Queries ===
   private canBeToDo(): void {
-    if (this.status.isToDo()) throw new Error("Project is already set to-do");
-    else if (!this.status.isInProgress())
-      throw new Error("Only started Projects can be set to do");
+    if (this.status.isToDo()) throw new Error('Project is already set to-do');
+    else if (!this.status.isInProgress()) throw new Error('Only started Projects can be set to do');
   }
   private canBeInProgress(): void {
-    if (this.status.isInProgress())
-      throw new Error("Project is already in progress");
-    else if (!this.status.isToDo())
-      throw new Error("Only to-do Projects can be started");
+    if (this.status.isInProgress()) throw new Error('Project is already in progress');
+    else if (!this.status.isToDo()) throw new Error('Only to-do Projects can be started');
   }
   private canBeDone(): void {
-    if (this.status.isDone()) throw new Error("Project is already done");
-    else if (!this.status.isInProgress())
-      throw new Error("Only started Projects can be set done");
+    if (this.status.isDone()) throw new Error('Project is already done');
+    else if (!this.status.isInProgress()) throw new Error('Only started Projects can be set done');
   }
   private canBeArchived(): void {
-    if (this.status.isArchived())
-      throw new Error("Project is already archived");
+    if (this.status.isArchived()) throw new Error('Project is already archived');
     else if (this.status.isDone() || this.status.isDeleted())
-      throw new Error("Only to-do and started Projects can be archived");
+      throw new Error('Only to-do and started Projects can be archived');
   }
   private canBeDeleted(): void {
-    if (this.status.isDeleted()) throw new Error("Project is already deleted");
-    else if (this.status.isDone())
-      throw new Error("Completed Projects cannot be deleted");
+    if (this.status.isDeleted()) throw new Error('Project is already deleted');
+    else if (this.status.isDone()) throw new Error('Completed Projects cannot be deleted');
   }
   private canBeModified(): void {
     if (!this.status.isInProgress() && !this.status.isToDo())
-      throw new Error("Only to-do and started Projects can be renamed");
+      throw new Error('Only to-do and started Projects can be renamed');
   }
 
   // === Utils ===
@@ -92,7 +86,7 @@ export class Project {
       new Date(),
       null,
       null,
-      description,
+      description
     );
   }
   rehydrate(
@@ -102,17 +96,9 @@ export class Project {
     createdAt: Date,
     startedAt: Date | null,
     finishedAt: Date | null,
-    description: ProjectDescription,
+    description: ProjectDescription
   ): Project {
-    return new Project(
-      id,
-      title,
-      status,
-      createdAt,
-      startedAt,
-      finishedAt,
-      description,
-    );
+    return new Project(id, title, status, createdAt, startedAt, finishedAt, description);
   }
   toPrimitives() {
     return {
