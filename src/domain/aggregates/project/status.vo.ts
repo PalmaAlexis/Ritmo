@@ -1,10 +1,4 @@
-export enum ProjectStatusValues {
-  toDo = 'TO_DO',
-  inProgress = 'IN_PROGRESS',
-  done = 'DONE',
-  archived = 'ACHIVED',
-  deleted = 'DELETED',
-}
+import { ProjectStatusValues } from '../../../shared/project/status';
 
 export class ProjectStatus {
   private constructor(private value: ProjectStatusValues) {}

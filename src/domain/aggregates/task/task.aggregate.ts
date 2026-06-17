@@ -28,16 +28,16 @@ export class Task {
     this.startedAt = null;
   }
   start(): void {
-    this.canBeInProgress();
+    this.canBeStarted();
     this.status = TaskStatus.InProgress();
 
     this.startedAt = new Date();
   }
   reopen(): void {
     this.canBeReopened();
-    this.status = TaskStatus.InProgress();
-
-    this.startedAt = new Date();
+    this.status = TaskStatus.ToDo();
+    // === Reset dates to track start again ===
+    this.startedAt = null;
     this.finishedAt = null;
   }
   complete(): void {
@@ -83,13 +83,12 @@ export class Task {
     if (this.status.isToDo()) throw new Error('Task is already set to-do');
     else if (!this.status.isInProgress()) throw new Error('Only started tasks can be set to do');
   }
-  private canBeInProgress(): void {
+  private canBeStarted(): void {
     if (this.status.isInProgress()) throw new Error('Task is already in progress');
     else if (!this.status.isToDo()) throw new Error('Only to-do tasks can be started');
   }
   private canBeReopened(): void {
-    if (this.status.isInProgress()) throw new Error('Task is already opened');
-    else if (!this.status.isDone()) throw new Error('Only done tasks can be reopened');
+    if (!this.status.isDone()) throw new Error('Only done tasks can be reopened');
   }
   private canBeDone(): void {
     if (this.status.isDone()) throw new Error('Task is already done');
@@ -168,31 +167,7 @@ export class Task {
       description: this.description.toString(),
     };
   }
-  getId(): TaskId {
-    return this.id;
-  }
-  getProjectId(): ProjectId {
-    return this.projectId;
-  }
-  getTitle(): TaskTitle {
-    return this.title;
-  }
-  getPriority(): TaskPriority {
-    return this.priority;
-  }
-  getCreatedAt(): Date {
-    return this.createdAt;
-  }
-  getStartedAt(): Date | null {
-    return this.startedAt;
-  }
-  getFinishedAt(): Date | null {
-    return this.finishedAt;
-  }
-  getLabelsId(): LabelId[] {
-    return this.labelsIds;
-  }
-  getDescription(): TaskDescription {
-    return this.description;
+  hasTitle(title: TaskTitle): boolean {
+    return this.title === title;
   }
 }

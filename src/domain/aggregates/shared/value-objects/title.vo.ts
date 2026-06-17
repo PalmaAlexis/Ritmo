@@ -8,8 +8,8 @@ export class Title {
     return new Title(StringUtils.normalize(title));
   }
   static from(title: string): Title {
-    if (!title || title.length === 0) throw new Error('Title cannot be empty');
     const normalized = StringUtils.normalize(title);
+    if (!normalized || normalized.length === 0) throw new Error('Title cannot be empty');
 
     if (normalized.length > this.MAX_LENGTH)
       throw new Error(`Title cannot exceed ${this.MAX_LENGTH} characters`);

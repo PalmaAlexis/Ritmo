@@ -6,4 +6,5 @@ export interface LabelRepository {
   findById(id: LabelId): Promise<Label | null>;
   save(label: Label): Promise<void>;
   existsByName(name: LabelName): Promise<boolean>;
+  existsAll(ids: LabelId[]): Promise<boolean>;
 }
