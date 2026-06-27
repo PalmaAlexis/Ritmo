@@ -161,6 +161,8 @@ export class Project {
       finishedAt: this.finishedAt,
       description: this.description.toString(),
       category: this.category.toString(),
+      icon: this.icon.toString(),
+      color: this.color.toString(),
     };
   }
   hasTitle(title: ProjectTitle) {

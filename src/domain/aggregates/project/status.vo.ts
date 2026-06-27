@@ -38,12 +38,12 @@ export class ProjectStatus {
   }
 
   // === Utils ===
-  rehydate(value: string): ProjectStatus {
+  static rehydate(value: string): ProjectStatus {
     if (!value) throw new Error(`Not valid Project status: ${value}`);
 
     return new ProjectStatus(value as ProjectStatusValues);
   }
-  from(value: string): ProjectStatus {
+  static from(value: string): ProjectStatus {
     if (!Object.values(ProjectStatusValues).includes(value as ProjectStatusValues))
       throw new Error(`Not valid Project status: ${value}`);
     return new ProjectStatus(value as ProjectStatusValues);
