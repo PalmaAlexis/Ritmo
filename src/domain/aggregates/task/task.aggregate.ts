@@ -1,10 +1,10 @@
 import type { LabelId } from '../label/id.vo';
 import type { ProjectId } from '../project/id.vo';
 import type { TaskDescription } from './description.vo';
-import { TaskId } from './id.vo';
 import type { TaskPriority } from './priority.vo';
-import { TaskStatus } from './status.vo';
 import type { TaskTitle } from './title.vo';
+import { TaskId } from './id.vo';
+import { TaskStatus } from './status.vo';
 
 export class Task {
   private constructor(
@@ -16,57 +16,63 @@ export class Task {
     private createdAt: Date,
     private startedAt: Date | null,
     private finishedAt: Date | null,
+    private deletedAt: Date | null,
     private labelsIds: LabelId[],
     private description: TaskDescription
   ) {}
+  private static readonly MAX_LABELS = 5;
 
   // === Actions ===
   setToDo(): void {
-    this.canBeToDo();
+    this.ensureIsToDo();
     this.status = TaskStatus.ToDo();
 
     this.startedAt = null;
   }
   start(): void {
-    this.canBeStarted();
+    this.ensureIsStarted();
     this.status = TaskStatus.InProgress();
 
     this.startedAt = new Date();
   }
   reopen(): void {
-    this.canBeReopened();
+    this.ensureIsReopened();
     this.status = TaskStatus.ToDo();
     // === Reset dates to track start again ===
     this.startedAt = null;
     this.finishedAt = null;
   }
   complete(): void {
-    this.canBeDone();
+    this.ensureIsDone();
     this.status = TaskStatus.Done();
 
     this.finishedAt = new Date();
   }
   archive(): void {
-    this.canBeArchived();
+    this.ensureIsArchived();
     this.status = TaskStatus.Archived();
   }
   delete(): void {
-    this.canBeDeleted();
+    this.ensureIsDeleted();
     this.status = TaskStatus.Deleted();
+    this.deletedAt = new Date();
   }
   rename(title: TaskTitle): void {
-    this.canBeModified();
+    this.ensureIsModified();
     this.title = title;
   }
   changePriority(priority: TaskPriority): void {
-    this.canBeModified();
+    this.ensureIsModified();
     this.priority = priority;
   }
   modifyDescription(description: TaskDescription): void {
-    this.canBeModified();
+    this.ensureIsModified();
     this.description = description;
   }
   addLabel(labelId: LabelId): void {
+    // === Only N labels per task ===
+    if (this.labelsIds.length >= Task.MAX_LABELS)
+      throw new Error(`Only ${Task.MAX_LABELS} can be added to a Task`);
     // === Avoid duplicated labels ===
     if (!this.labelsIds.some((id) => id.equals(labelId))) this.labelsIds.push(labelId);
   }
@@ -79,31 +85,41 @@ export class Task {
   }
 
   // === Queries ===
-  private canBeToDo(): void {
+  private ensureIsNotDeleted(): void {
+    if (this.deletedAt) throw new Error('Error, task has already been deleted');
+  }
+  private ensureIsToDo(): void {
+    this.ensureIsNotDeleted();
     if (this.status.isToDo()) throw new Error('Task is already set to-do');
     else if (!this.status.isInProgress()) throw new Error('Only started tasks can be set to do');
   }
-  private canBeStarted(): void {
+  private ensureIsStarted(): void {
+    this.ensureIsNotDeleted();
     if (this.status.isInProgress()) throw new Error('Task is already in progress');
     else if (!this.status.isToDo()) throw new Error('Only to-do tasks can be started');
   }
-  private canBeReopened(): void {
+  private ensureIsReopened(): void {
+    this.ensureIsNotDeleted();
     if (!this.status.isDone()) throw new Error('Only done tasks can be reopened');
   }
-  private canBeDone(): void {
+  private ensureIsDone(): void {
+    this.ensureIsNotDeleted();
     if (this.status.isDone()) throw new Error('Task is already done');
     else if (!this.status.isInProgress()) throw new Error('Only started tasks can be set done');
   }
-  private canBeArchived(): void {
+  private ensureIsArchived(): void {
+    this.ensureIsNotDeleted();
     if (this.status.isArchived()) throw new Error('Task is already archived');
     else if (this.status.isDone() || this.status.isDeleted())
       throw new Error('Only to-do and started tasks can be archived');
   }
-  private canBeDeleted(): void {
+  private ensureIsDeleted(): void {
+    this.ensureIsNotDeleted();
     if (this.status.isDeleted()) throw new Error('Task is already deleted');
     else if (this.status.isDone()) throw new Error('Completed tasks cannot be deleted');
   }
-  private canBeModified(): void {
+  private ensureIsModified(): void {
+    this.ensureIsNotDeleted();
     if (!this.status.isInProgress() && !this.status.isToDo())
       throw new Error('Only to-do and started tasks can be renamed');
   }
@@ -125,6 +141,7 @@ export class Task {
       new Date(),
       null,
       null,
+      null,
       labelsIds,
       description
     );
@@ -138,6 +155,7 @@ export class Task {
     createdAt: Date,
     startedAt: Date | null,
     finishedAt: Date | null,
+    deleted_at: Date | null,
     labelsIds: LabelId[],
     description: TaskDescription
   ): Task {
@@ -150,6 +168,7 @@ export class Task {
       createdAt,
       startedAt,
       finishedAt,
+      deleted_at,
       labelsIds,
       description
     );
@@ -163,6 +182,7 @@ export class Task {
       createdAt: this.createdAt,
       startedAt: this.startedAt,
       finishedAt: this.finishedAt,
+      deletedAt: this.deletedAt,
       labelsIds: this.labelsIds.map((label) => label.toString()),
       description: this.description.toString(),
     };

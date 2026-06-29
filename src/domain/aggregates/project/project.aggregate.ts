@@ -14,7 +14,8 @@ export class Project {
     private createdAt: Date,
     private startedAt: Date | null,
     private finishedAt: Date | null,
-    private description: ProjectDescription,
+    private deletedAt: Date | null,
+    private description: ProjectDescription | null,
     private category: ProjectCategory,
     // === UI Customization ===
     private icon: ProjectIcon,
@@ -23,48 +24,49 @@ export class Project {
 
   // === Actions ===
   setToDo(): void {
-    this.canBeToDo();
+    this.ensureIsToDo();
     this.status = ProjectStatus.ToDo();
 
     this.startedAt = null;
   }
   start(): void {
-    this.canBeStarted();
+    this.ensureIsStarted();
     this.status = ProjectStatus.InProgress();
 
     this.startedAt = new Date();
   }
   complete(): void {
-    this.canBeDone();
+    this.ensureIsDone();
     this.status = ProjectStatus.Done();
 
     this.finishedAt = new Date();
   }
   archive(): void {
-    this.canBeArchived();
+    this.ensureIsArchived();
     this.status = ProjectStatus.Archived();
   }
   reopen(): void {
-    this.canBeReopened();
+    this.ensureIsReopened();
     this.status = ProjectStatus.ToDo();
     // === Reset dates to track start again ===
     this.startedAt = null;
     this.finishedAt = null;
   }
   delete(): void {
-    this.canBeDeleted();
+    this.ensureIsDeleted();
     this.status = ProjectStatus.Deleted();
+    this.deletedAt = new Date();
   }
   rename(title: ProjectTitle): void {
-    this.canBeModified();
+    this.ensureIsModified();
     this.title = title;
   }
   modifyDescription(description: ProjectDescription): void {
-    this.canBeModified();
+    this.ensureIsModified();
     this.description = description;
   }
   modifyCategory(category: ProjectCategory): void {
-    this.canBeModified();
+    this.ensureIsModified();
     this.category = category;
   }
   changeIcon(icon: ProjectIcon): void {
@@ -77,31 +79,41 @@ export class Project {
   }
 
   // === Queries ===
-  private canBeToDo(): void {
+  private ensureIsNotDeleted(): void {
+    if (this.deletedAt) throw new Error('Error, project has already been deleted');
+  }
+  private ensureIsToDo(): void {
+    this.ensureIsNotDeleted();
     if (this.status.isToDo()) throw new Error('Project is already set to-do');
     else if (!this.status.isInProgress()) throw new Error('Only started Projects can be set to do');
   }
-  private canBeStarted(): void {
+  private ensureIsStarted(): void {
+    this.ensureIsNotDeleted();
     if (this.status.isInProgress()) throw new Error('Project is already in progress');
     else if (!this.status.isToDo()) throw new Error('Only to-do Projects can be started');
   }
-  private canBeDone(): void {
+  private ensureIsDone(): void {
+    this.ensureIsNotDeleted();
     if (this.status.isDone()) throw new Error('Project is already done');
     else if (!this.status.isInProgress()) throw new Error('Only started Projects can be set done');
   }
-  private canBeReopened(): void {
+  private ensureIsReopened(): void {
+    this.ensureIsNotDeleted();
     if (!this.status.isDone()) throw new Error('Only Done Projects can be reopened');
   }
-  private canBeArchived(): void {
+  private ensureIsArchived(): void {
+    this.ensureIsNotDeleted();
     if (this.status.isArchived()) throw new Error('Project is already archived');
     else if (this.status.isDone() || this.status.isDeleted())
       throw new Error('Only to-do and started Projects can be archived');
   }
-  private canBeDeleted(): void {
+  private ensureIsDeleted(): void {
+    this.ensureIsNotDeleted();
     if (this.status.isDeleted()) throw new Error('Project is already deleted');
     else if (this.status.isDone()) throw new Error('Completed Projects cannot be deleted');
   }
-  private canBeModified(): void {
+  private ensureIsModified(): void {
+    this.ensureIsNotDeleted();
     if (!this.status.isInProgress() && !this.status.isToDo())
       throw new Error('Only to-do and started Projects can be renamed');
   }
@@ -121,6 +133,7 @@ export class Project {
       new Date(),
       null,
       null,
+      null,
       description,
       category,
       icon,
@@ -134,6 +147,7 @@ export class Project {
     createdAt: Date,
     startedAt: Date | null,
     finishedAt: Date | null,
+    deletedAt: Date | null,
     description: ProjectDescription,
     category: ProjectCategory,
     icon: ProjectIcon,
@@ -146,6 +160,7 @@ export class Project {
       createdAt,
       startedAt,
       finishedAt,
+      deletedAt,
       description,
       category,
       icon,
@@ -159,7 +174,8 @@ export class Project {
       createdAt: this.createdAt,
       startedAt: this.startedAt,
       finishedAt: this.finishedAt,
-      description: this.description.toString(),
+      deletedAt: this.deletedAt,
+      description: this.description ? this.description.toString() : null,
       category: this.category.toString(),
       icon: this.icon.toString(),
       color: this.color.toString(),
