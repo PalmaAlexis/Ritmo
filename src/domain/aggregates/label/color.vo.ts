@@ -1,13 +1,4 @@
-export enum LabelColorValues {
-  red = 'RED',
-  orange = 'ORANGE',
-  yellow = 'YELLOW',
-  green = 'GREEN',
-  blue = 'BLUE',
-  purple = 'PURPLE',
-  pink = 'PINK',
-  gray = 'GRAY',
-}
+import { LabelColorValues } from '../../../shared/label-ui/color';
 
 export class LabelColor {
   private constructor(private value: LabelColorValues) {}

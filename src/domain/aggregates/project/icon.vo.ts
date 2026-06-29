@@ -1,4 +1,4 @@
-import { ProjectIconValues } from '../../../shared/project-ui/values';
+import { ProjectIconValues } from '../../../shared/project-ui/icon';
 
 export class ProjectIcon {
   private constructor(private value: ProjectIconValues) {}
