@@ -18,7 +18,7 @@ export class Task {
     private finishedAt: Date | null,
     private deletedAt: Date | null,
     private labelsIds: LabelId[],
-    private description: TaskDescription
+    private description: TaskDescription | null
   ) {}
   private static readonly MAX_LABELS = 5;
 
@@ -184,7 +184,7 @@ export class Task {
       finishedAt: this.finishedAt,
       deletedAt: this.deletedAt,
       labelsIds: this.labelsIds.map((label) => label.toString()),
-      description: this.description.toString(),
+      description: this.description ? this.description.toString() : null,
     };
   }
   hasTitle(title: TaskTitle): boolean {
