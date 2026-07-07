@@ -1,12 +1,12 @@
 import { ProjectColor } from '../../../../domain/aggregates/project/color.vo';
 import { ProjectId } from '../../../../domain/aggregates/project/id.vo';
 import type { ProjectRepository } from '../../../../domain/repositories/project.repository';
-import type { ChangeProjectColorCommand } from './command';
+import type { ModifyProjectColorCommand } from './command';
 
-export class ChangeProjectColorHandler {
+export class ModifyProjectColorHandler {
   constructor(private readonly projectRepository: ProjectRepository) {}
 
-  async execute(command: ChangeProjectColorCommand): Promise<void> {
+  async execute(command: ModifyProjectColorCommand): Promise<void> {
     const id = ProjectId.from(command.id);
     const color = ProjectColor.from(command.color);
 
