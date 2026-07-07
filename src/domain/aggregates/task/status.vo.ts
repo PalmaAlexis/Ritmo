@@ -38,12 +38,12 @@ export class TaskStatus {
   }
 
   // === Utils ===
-  rehydate(value: string): TaskStatus {
+  static rehydrate(value: string): TaskStatus {
     if (!value) throw new Error(`Not valid Task status: ${value}`);
 
     return new TaskStatus(value as TaskStatusValues);
   }
-  from(value: string): TaskStatus {
+  static from(value: string): TaskStatus {
     if (!Object.values(TaskStatusValues).includes(value as TaskStatusValues))
       throw new Error(`Not valid Task status: ${value}`);
     return new TaskStatus(value as TaskStatusValues);

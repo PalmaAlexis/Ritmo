@@ -140,7 +140,7 @@ export class Project {
       color
     );
   }
-  rehydrate(
+  static rehydrate(
     id: ProjectId,
     title: ProjectTitle,
     status: ProjectStatus,
@@ -148,7 +148,7 @@ export class Project {
     startedAt: Date | null,
     finishedAt: Date | null,
     deletedAt: Date | null,
-    description: ProjectDescription,
+    description: ProjectDescription | null,
     category: ProjectCategory,
     icon: ProjectIcon,
     color: ProjectColor
@@ -171,6 +171,7 @@ export class Project {
     return {
       id: this.id.toString(),
       title: this.title.toString(),
+      status: this.status.toString(),
       createdAt: this.createdAt,
       startedAt: this.startedAt,
       finishedAt: this.finishedAt,

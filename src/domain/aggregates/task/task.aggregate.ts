@@ -146,7 +146,7 @@ export class Task {
       description
     );
   }
-  rehydrate(
+  static rehydrate(
     id: TaskId,
     projectId: ProjectId,
     title: TaskTitle,
@@ -155,9 +155,9 @@ export class Task {
     createdAt: Date,
     startedAt: Date | null,
     finishedAt: Date | null,
-    deleted_at: Date | null,
+    deletedAt: Date | null,
     labelsIds: LabelId[],
-    description: TaskDescription
+    description: TaskDescription | null
   ): Task {
     return new Task(
       id,
@@ -168,7 +168,7 @@ export class Task {
       createdAt,
       startedAt,
       finishedAt,
-      deleted_at,
+      deletedAt,
       labelsIds,
       description
     );
@@ -178,6 +178,7 @@ export class Task {
       id: this.id.toString(),
       projectId: this.projectId.toString(),
       title: this.title.toString(),
+      status: this.status.toString(),
       priority: this.priority.toString(),
       createdAt: this.createdAt,
       startedAt: this.startedAt,
@@ -189,5 +190,11 @@ export class Task {
   }
   hasTitle(title: TaskTitle): boolean {
     return this.title === title;
+  }
+  getId(): TaskId {
+    return this.id;
+  }
+  getLabelsIds(): LabelId[] {
+    return this.labelsIds;
   }
 }
