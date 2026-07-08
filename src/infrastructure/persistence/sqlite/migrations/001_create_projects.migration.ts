@@ -1,7 +1,7 @@
-import type { Database } from '../../database';
-import type { Migration } from './migration';
+import type { ExpoSQLiteDatabase as Database } from '../database/sqlite.database';
+import type { SQLiteMigration } from './migration';
 
-export class CreateProjectsMigration implements Migration {
+export class SQLiteCreateProjectsMigration implements SQLiteMigration {
   readonly version = 1;
 
   async up(database: Database): Promise<void> {
