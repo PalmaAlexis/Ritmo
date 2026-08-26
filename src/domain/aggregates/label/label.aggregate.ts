@@ -7,27 +7,26 @@ export class Label {
     private readonly id: LabelId,
     private name: LabelName,
     private color: LabelColor,
-    private active: boolean
+    private deletedAt: Date | null
   ) {}
 
   // === Actions ===
   static new(name: LabelName, color: LabelColor): Label {
-    return new Label(LabelId.new(), name, color, true);
+    return new Label(LabelId.new(), name, color, null);
   }
   delete(): void {
-    if (!this.active) throw new Error('Label is already inactive');
-    this.canBeModified();
-    this.active = false;
+    this.ensureIsNotDeleted();
+    this.deletedAt = new Date();
   }
 
   // === Queries ===
-  canBeModified(): void {
-    if (!this.isActive()) throw new Error('Only active labels can be modified');
+  private ensureIsNotDeleted(): void {
+    if (this.deletedAt) throw new Error('Error, label has already been deleted');
   }
 
   // === Utils ===
-  static rehydrate(id: LabelId, name: LabelName, color: LabelColor, active: boolean): Label {
-    return new Label(id, name, color, active);
+  static rehydrate(id: LabelId, name: LabelName, color: LabelColor, deletedAt: Date | null): Label {
+    return new Label(id, name, color, deletedAt);
   }
   toPrimitive() {
     return {
@@ -35,18 +34,5 @@ export class Label {
       name: this.name.toString(),
       color: this.color.toString(),
     };
-  }
-  // === Getters ===
-  getId(): LabelId {
-    return this.id;
-  }
-  getName(): LabelName {
-    return this.name;
-  }
-  getColor(): LabelColor {
-    return this.color;
-  }
-  isActive(): boolean {
-    return this.active;
   }
 }

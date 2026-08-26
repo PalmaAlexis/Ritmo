@@ -1,8 +1,4 @@
-export enum TaskPriorityValues {
-  low = 'LOW',
-  medium = 'MEDIUM',
-  high = 'HIGH',
-}
+import { TaskPriorityValues } from '../../../shared/task/priority';
 
 export class TaskPriority {
   private constructor(private value: TaskPriorityValues) {}

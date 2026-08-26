@@ -28,7 +28,8 @@
     "web": "expo start --web",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
-    "format": "prettier --write \"**/*.{ts,tsx,json}\""
+    "format": "prettier --write \"**/*.{ts,tsx,json}\"",
+    "prepare": "npm run lint:fix && npm run format"
   },
   "private": true
 }

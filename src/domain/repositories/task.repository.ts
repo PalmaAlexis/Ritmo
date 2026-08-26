@@ -7,4 +7,5 @@ export interface TaskRepository {
   findById(id: TaskId): Promise<Task | null>;
   save(Task: Task): Promise<void>;
   existsByProjectAndTitle(projectId: ProjectId, title: TaskTitle): Promise<boolean>;
+  countTasksByProject(projectId: ProjectId): Promise<number>;
 }

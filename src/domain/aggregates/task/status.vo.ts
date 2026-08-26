@@ -1,10 +1,4 @@
-export enum TaskStatusValues {
-  toDo = 'TO_DO',
-  inProgress = 'IN_PROGRESS',
-  done = 'DONE',
-  archived = 'ACHIVED',
-  deleted = 'DELETED',
-}
+import { TaskStatusValues } from '../../../shared/task/status';
 
 export class TaskStatus {
   private constructor(private value: TaskStatusValues) {}
