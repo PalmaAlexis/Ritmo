@@ -1,4 +1,4 @@
-import type { ExpoSQLiteDatabase as Database } from '../database/sqlite.database';
+import type { Database } from '../../database';
 import type { SQLiteMigration } from './migration';
 
 export class SQLiteCreateTasksLabelsMigration implements SQLiteMigration {
