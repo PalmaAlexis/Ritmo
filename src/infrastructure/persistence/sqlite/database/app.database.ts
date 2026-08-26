@@ -1,15 +1,15 @@
 import { openDatabaseSync } from 'expo-sqlite';
-import { ExpoSQLiteDatabase } from './sqlite.database';
 import type { Database } from '../../database';
-import type { Migration } from '../migrations/migration';
+import { ExpoSQLiteDatabase } from './sqlite.database';
+import type { SQLiteMigration } from '../migrations/migration';
 
 const sqlite = openDatabaseSync('project-management.db');
 export const database = new ExpoSQLiteDatabase(sqlite);
 
-export class AppDatabase {
+export class SQLiteAppDatabase {
   constructor(
     private readonly database: Database,
-    private readonly migrations: Migration[]
+    private readonly migrations: SQLiteMigration[]
   ) {}
 
   async initialize(): Promise<void> {
@@ -28,15 +28,17 @@ export class AppDatabase {
 
       if (executed) continue;
 
-      await migration.up(this.database);
+      await this.database.transaction(async (database) => {
+        await migration.up(database);
 
-      await this.database.execute(
-        `
-        INSERT INTO migrations(version)
-        VALUES(?)
-        `,
-        [migration.version]
-      );
+        await database.execute(
+          `
+          INSERT INTO migrations(version)
+          VALUES(?)
+          `,
+          [migration.version]
+        );
+      });
     }
   }
 
