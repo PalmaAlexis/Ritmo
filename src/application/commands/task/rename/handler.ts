@@ -1,4 +1,3 @@
-import { ProjectId } from '../../../../domain/aggregates/project/id.vo';
 import { TaskId } from '../../../../domain/aggregates/task/id.vo';
 import { TaskTitle } from '../../../../domain/aggregates/task/title.vo';
 import type { TaskRepository } from '../../../../domain/repositories/task.repository';
@@ -9,7 +8,6 @@ export class RenameTaskHandler {
 
   async execute(command: RenameTaskCommand): Promise<void> {
     const id = TaskId.from(command.id);
-    const projectId = ProjectId.from(command.projectId);
     const title = TaskTitle.from(command.title);
 
     const task = await this.taskRepository.findById(id);
@@ -18,7 +16,10 @@ export class RenameTaskHandler {
     // === Nothing to do ===
     if (task.hasTitle(title)) return;
     // === No duplicated tasks by title ===
-    const duplicated = await this.taskRepository.existsByProjectAndTitle(projectId, title);
+    const duplicated = await this.taskRepository.existsByProjectAndTitle(
+      task.getProjectId(),
+      title
+    );
     if (duplicated) throw new Error(`Task with title: ${title.toString()}, already exists`);
 
     task.rename(title);

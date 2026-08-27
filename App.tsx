@@ -1,7 +1,50 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { appDatabase } from './src/infrastructure/persistence/sqlite/database/app.database';
 
 export default function App() {
+  const [databaseError, setDatabaseError] = useState<Error | null>(null);
+  const [databaseReady, setDatabaseReady] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+
+    appDatabase
+      .initialize()
+      .then(() => {
+        if (mounted) setDatabaseReady(true);
+      })
+      .catch((error: unknown) => {
+        if (!mounted) return;
+        setDatabaseError(
+          error instanceof Error ? error : new Error('Database initialization failed')
+        );
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  if (databaseError) {
+    return (
+      <View style={styles.container}>
+        <Text>Could not initialize the database: {databaseError.message}</Text>
+        <StatusBar style='auto' />
+      </View>
+    );
+  }
+
+  if (!databaseReady) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator />
+        <StatusBar style='auto' />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>

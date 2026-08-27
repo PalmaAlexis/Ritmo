@@ -2,7 +2,7 @@ import { ProjectId } from '../../../../domain/aggregates/project/id.vo';
 import type { ProjectRepository } from '../../../../domain/repositories/project.repository';
 import type { StartProjectCommand } from './command';
 
-export class CreateProjectHandler {
+export class StartProjectHandler {
   constructor(private readonly projectRepository: ProjectRepository) {}
 
   async execute(command: StartProjectCommand): Promise<void> {

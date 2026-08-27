@@ -3,7 +3,7 @@ import { ProjectId } from '../../../../domain/aggregates/project/id.vo';
 import type { ProjectRepository } from '../../../../domain/repositories/project.repository';
 import type { ModifyProjectIconCommand } from './command';
 
-export class ModifyProjecIconHandler {
+export class ModifyProjectIconHandler {
   constructor(private readonly projectRepository: ProjectRepository) {}
 
   async execute(command: ModifyProjectIconCommand): Promise<void> {
