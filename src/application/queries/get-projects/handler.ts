@@ -13,7 +13,10 @@ export class GetProjectsHandler {
 
     return {
       projects: projects.map((project) => {
-        const percentage = (project.allTasksCount / project.completedTasksCount) * 100;
+        const percentage =
+          project.allTasksCount === 0
+            ? 0
+            : (project.completedTasksCount / project.allTasksCount) * 100;
         return {
           id: project.id,
           title: project.title,

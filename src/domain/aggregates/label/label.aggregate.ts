@@ -28,11 +28,12 @@ export class Label {
   static rehydrate(id: LabelId, name: LabelName, color: LabelColor, deletedAt: Date | null): Label {
     return new Label(id, name, color, deletedAt);
   }
-  toPrimitive() {
+  toPrimitives() {
     return {
       id: this.id.toString(),
       name: this.name.toString(),
       color: this.color.toString(),
+      deletedAt: this.deletedAt,
     };
   }
 }

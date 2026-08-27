@@ -38,7 +38,7 @@ export class ProjectStatus {
   }
 
   // === Utils ===
-  static rehydate(value: string): ProjectStatus {
+  static rehydrate(value: string): ProjectStatus {
     if (!value) throw new Error(`Not valid Project status: ${value}`);
 
     return new ProjectStatus(value as ProjectStatusValues);

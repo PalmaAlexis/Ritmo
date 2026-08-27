@@ -40,7 +40,7 @@ export class CreateTaskHandler {
     if (duplicated) throw new Error(`Task with title: ${title.toString()}, already exists`);
 
     // === Existing labels ===
-    const validLabels = this.labelRepository.existsAll(labelsIds);
+    const validLabels = await this.labelRepository.existsAll(labelsIds);
     if (!validLabels) throw new Error('Some labels do not exist');
 
     const task = Task.new(projectId, title, priority, labelsIds, description);

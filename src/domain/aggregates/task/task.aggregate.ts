@@ -70,11 +70,12 @@ export class Task {
     this.description = description;
   }
   addLabel(labelId: LabelId): void {
+    // === Avoid duplicated labels ===
+    if (this.labelsIds.some((id) => id.equals(labelId))) return;
     // === Only N labels per task ===
     if (this.labelsIds.length >= Task.MAX_LABELS)
       throw new Error(`Only ${Task.MAX_LABELS} can be added to a Task`);
-    // === Avoid duplicated labels ===
-    if (!this.labelsIds.some((id) => id.equals(labelId))) this.labelsIds.push(labelId);
+    this.labelsIds.push(labelId);
   }
   deleteLabel(labelId: LabelId): void {
     const originalLength = this.labelsIds.length;
@@ -132,6 +133,7 @@ export class Task {
     labelsIds: LabelId[],
     description: TaskDescription
   ): Task {
+    const validLabelsIds = Task.validateLabels(labelsIds);
     return new Task(
       TaskId.new(),
       projectId,
@@ -142,11 +144,11 @@ export class Task {
       null,
       null,
       null,
-      labelsIds,
+      validLabelsIds,
       description
     );
   }
-  rehydrate(
+  static rehydrate(
     id: TaskId,
     projectId: ProjectId,
     title: TaskTitle,
@@ -155,10 +157,11 @@ export class Task {
     createdAt: Date,
     startedAt: Date | null,
     finishedAt: Date | null,
-    deleted_at: Date | null,
+    deletedAt: Date | null,
     labelsIds: LabelId[],
-    description: TaskDescription
+    description: TaskDescription | null
   ): Task {
+    const validLabelsIds = Task.validateLabels(labelsIds);
     return new Task(
       id,
       projectId,
@@ -168,8 +171,8 @@ export class Task {
       createdAt,
       startedAt,
       finishedAt,
-      deleted_at,
-      labelsIds,
+      deletedAt,
+      validLabelsIds,
       description
     );
   }
@@ -178,6 +181,7 @@ export class Task {
       id: this.id.toString(),
       projectId: this.projectId.toString(),
       title: this.title.toString(),
+      status: this.status.toString(),
       priority: this.priority.toString(),
       createdAt: this.createdAt,
       startedAt: this.startedAt,
@@ -188,6 +192,24 @@ export class Task {
     };
   }
   hasTitle(title: TaskTitle): boolean {
-    return this.title === title;
+    return this.title.equals(title);
+  }
+  getId(): TaskId {
+    return this.id;
+  }
+  getProjectId(): ProjectId {
+    return this.projectId;
+  }
+  getLabelsIds(): LabelId[] {
+    return [...this.labelsIds];
+  }
+  private static validateLabels(labelsIds: LabelId[]): LabelId[] {
+    const uniqueLabels = labelsIds.filter(
+      (labelId, index) => labelsIds.findIndex((candidate) => candidate.equals(labelId)) === index
+    );
+    if (uniqueLabels.length > Task.MAX_LABELS)
+      throw new Error(`Only ${Task.MAX_LABELS} labels can be added to a Task`);
+
+    return uniqueLabels;
   }
 }

@@ -11,7 +11,6 @@ export class ExpoSQLiteDatabase implements Database {
 
   async get<T>(sql: string, params: unknown[] = []): Promise<T | null> {
     const result = await this.database.getFirstAsync<T>(sql, params as SQLiteBindParams);
-
     return result ?? null;
   }
 
@@ -19,16 +18,14 @@ export class ExpoSQLiteDatabase implements Database {
     return await this.database.getAllAsync<T>(sql, params as SQLiteBindParams);
   }
 
-  async transaction<T>(callback: () => Promise<T>): Promise<T> {
-    await this.database.execAsync('BEGIN');
+  async transaction<T>(callback: (database: Database) => Promise<T>): Promise<T> {
+    let result!: T;
 
-    try {
-      const result = await callback();
-      await this.database.execAsync('COMMIT');
-      return result;
-    } catch (error) {
-      await this.database.execAsync('ROLLBACK');
-      throw error;
-    }
+    await this.database.withExclusiveTransactionAsync(async (transaction) => {
+      const transactionDatabase = new ExpoSQLiteDatabase(transaction);
+      result = await callback(transactionDatabase);
+    });
+
+    return result;
   }
 }

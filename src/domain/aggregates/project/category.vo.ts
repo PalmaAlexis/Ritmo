@@ -8,8 +8,9 @@ export class ProjectCategory {
     return new ProjectCategory(StringUtils.normalize(category));
   }
   static from(category: string): ProjectCategory {
-    if (!category || category.length === 0) throw new Error('Category cannot be empty');
+    if (!category) throw new Error('Category cannot be empty');
     const normalized = StringUtils.normalize(category);
+    if (normalized.length === 0) throw new Error('Category cannot be empty');
 
     if (normalized.length > this.MAX_LENGTH)
       throw new Error(`Category cannot exceed ${this.MAX_LENGTH} characters`);
