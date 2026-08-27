@@ -4,6 +4,6 @@ import type { ProjectTitle } from '../aggregates/project/title.vo';
 
 export interface ProjectRepository {
   findById(id: ProjectId): Promise<Project | null>;
-  save(Project: Project): Promise<void>;
+  save(project: Project): Promise<void>;
   existsByTitle(title: ProjectTitle): Promise<boolean>;
 }

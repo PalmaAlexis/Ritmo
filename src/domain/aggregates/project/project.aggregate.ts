@@ -182,7 +182,7 @@ export class Project {
       color: this.color.toString(),
     };
   }
-  hasTitle(title: ProjectTitle) {
-    return this.title === title;
+  hasTitle(title: ProjectTitle): boolean {
+    return this.title.equals(title);
   }
 }

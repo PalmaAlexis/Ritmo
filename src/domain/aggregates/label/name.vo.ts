@@ -8,8 +8,9 @@ export class LabelName {
     return new LabelName(StringUtils.normalize(name));
   }
   static from(name: string): LabelName {
-    if (!name || name.length === 0) throw new Error('Label name cannot be empty');
+    if (!name) throw new Error('Label name cannot be empty');
     const normalized = StringUtils.normalize(name);
+    if (normalized.length === 0) throw new Error('Label name cannot be empty');
 
     if (normalized.length > this.MAX_LENGTH)
       throw new Error(`Label name cannot exceed ${this.MAX_LENGTH} characters`);
