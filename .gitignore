@@ -39,3 +39,8 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# LLM cu.stom files
+CLAUDE.md
+.claude/
+
