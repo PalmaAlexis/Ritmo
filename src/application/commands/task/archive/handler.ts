@@ -12,6 +12,6 @@ export class ArchiveTaskHandler {
     if (!task) throw new Error('Task does not exist');
 
     task.archive();
-    return this.taskRepository.save(task);
+    await this.taskRepository.save(task);
   }
 }

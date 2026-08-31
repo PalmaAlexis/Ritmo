@@ -12,6 +12,6 @@ export class ReopenProjectHandler {
     if (!project) throw new Error('Project does not exist');
 
     project.reopen();
-    return this.projectRepository.save(project);
+    await this.projectRepository.save(project);
   }
 }

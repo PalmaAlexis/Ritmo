@@ -12,6 +12,6 @@ export class ArchiveProjectHandler {
     if (!project) throw new Error('Project does not exist');
 
     project.archive();
-    return this.projectRepository.save(project);
+    await this.projectRepository.save(project);
   }
 }

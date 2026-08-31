@@ -16,6 +16,6 @@ export class CreateLabelHandler {
     if (duplicated) throw new Error(`Label with name: ${name}, already exists`);
 
     const label = Label.new(name, color);
-    return this.labelRepository.save(label);
+    await this.labelRepository.save(label);
   }
 }

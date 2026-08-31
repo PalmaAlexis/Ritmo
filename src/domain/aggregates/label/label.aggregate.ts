@@ -14,9 +14,9 @@ export class Label {
   static new(name: LabelName, color: LabelColor): Label {
     return new Label(LabelId.new(), name, color, null);
   }
-  delete(): void {
+  delete(deletedAt: Date): void {
     this.ensureIsNotDeleted();
-    this.deletedAt = new Date();
+    this.deletedAt = deletedAt;
   }
 
   // === Queries ===

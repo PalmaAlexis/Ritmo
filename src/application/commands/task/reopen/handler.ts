@@ -12,6 +12,6 @@ export class ReopenTaskHandler {
     if (!task) throw new Error('Task does not exist');
 
     task.reopen();
-    return this.taskRepository.save(task);
+    await this.taskRepository.save(task);
   }
 }

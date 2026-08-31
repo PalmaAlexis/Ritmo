@@ -14,6 +14,6 @@ export class ModifyProjectIconHandler {
     if (!project) throw new Error('Project does not exist');
 
     project.changeIcon(icon);
-    return this.projectRepository.save(project);
+    await this.projectRepository.save(project);
   }
 }

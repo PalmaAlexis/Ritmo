@@ -14,6 +14,6 @@ export class ModifyProjectCategoryHandler {
     if (!project) throw new Error('Project does not exist');
 
     project.modifyCategory(category);
-    return this.projectRepository.save(project);
+    await this.projectRepository.save(project);
   }
 }
