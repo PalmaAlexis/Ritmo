@@ -1,5 +1,5 @@
 import type { LabelId } from '../../../../domain/aggregates/label/id.vo';
-import type { SQLiteTaskRecord } from '../records/task.record';
+import type { SQLiteTaskRecord } from '../records/write/task.record';
 import { ProjectId } from '../../../../domain/aggregates/project/id.vo';
 import { TaskDescription } from '../../../../domain/aggregates/task/description.vo';
 import { TaskId } from '../../../../domain/aggregates/task/id.vo';

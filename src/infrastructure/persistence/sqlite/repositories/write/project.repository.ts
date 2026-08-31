@@ -4,7 +4,8 @@ import type { ProjectTitle } from '../../../../../domain/aggregates/project/titl
 import type { ProjectRepository } from '../../../../../domain/repositories/project.repository';
 import type { Database } from '../../../database';
 import { SQLiteProjectMapper } from '../../mappers/project.mapper';
-import type { SQLiteProjectRecord } from '../../records/project.record';
+import type { SQLiteProjectRecord } from '../../records/write/project.record';
+import type { SQLiteExistsRecord } from '../../records/write/query.record';
 
 export class SQLiteProjectRepository implements ProjectRepository {
   constructor(private readonly database: Database) {}
@@ -83,7 +84,7 @@ export class SQLiteProjectRepository implements ProjectRepository {
   }
 
   async existsByTitle(title: ProjectTitle): Promise<boolean> {
-    const record = await this.database.get<{ exists: number }>(
+    const record = await this.database.get<SQLiteExistsRecord>(
       `SELECT EXISTS(
         SELECT 1 
         FROM projects
