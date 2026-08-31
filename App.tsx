@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import { appDatabase } from './src/infrastructure/persistence/sqlite/database/app.database';
+import { appComposition } from './src/infrastructure/composition/app.composition';
 
 export default function App() {
   const [databaseError, setDatabaseError] = useState<Error | null>(null);
@@ -10,7 +10,7 @@ export default function App() {
   useEffect(() => {
     let mounted = true;
 
-    appDatabase
+    appComposition
       .initialize()
       .then(() => {
         if (mounted) setDatabaseReady(true);
