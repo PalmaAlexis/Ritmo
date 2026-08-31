@@ -6,8 +6,9 @@ import type { TaskRepository } from '../../../../../domain/repositories/task.rep
 import type { Database } from '../../../database';
 import { SQLiteTaskLabelMapper as TaskLabelMapper } from '../../mappers/task-label.mapper';
 import { SQLiteTaskMapper as TaskMapper } from '../../mappers/task.mapper';
-import type { SQLiteTaskLabelRecord } from '../../records/task-label.record';
-import type { SQLiteTaskRecord } from '../../records/task.record';
+import type { SQLiteExistsRecord, SQLiteTaskCountRecord } from '../../records/write/query.record';
+import type { SQLiteTaskLabelRecord } from '../../records/write/task-label.record';
+import type { SQLiteTaskRecord } from '../../records/write/task.record';
 
 export class SQLiteTaskRepository implements TaskRepository {
   constructor(private readonly database: Database) {}
@@ -15,19 +16,22 @@ export class SQLiteTaskRepository implements TaskRepository {
   async findById(id: TaskId): Promise<Task | null> {
     const recordTask = await this.database.get<SQLiteTaskRecord>(
       `SELECT
-          id,
-          project_id AS projectId,
-          title,
-          status,
-          priority,
-          created_at AS createdAt,
-          started_at AS startedAt,
-          finished_at AS finishedAt,
-          deleted_at AS deletedAt,
-          description
-        FROM tasks 
-        WHERE id = ?
-        AND deleted_at IS NULL
+          tasks.id,
+          tasks.project_id AS projectId,
+          tasks.title,
+          tasks.status,
+          tasks.priority,
+          tasks.created_at AS createdAt,
+          tasks.started_at AS startedAt,
+          tasks.finished_at AS finishedAt,
+          tasks.deleted_at AS deletedAt,
+          tasks.description
+        FROM tasks
+        INNER JOIN projects
+          ON projects.id = tasks.project_id
+          AND projects.deleted_at IS NULL
+        WHERE tasks.id = ?
+        AND tasks.deleted_at IS NULL
         LIMIT 1`,
       [id.toString()]
     );
@@ -35,10 +39,13 @@ export class SQLiteTaskRepository implements TaskRepository {
 
     const recordLabels = await this.database.all<SQLiteTaskLabelRecord>(
       `SELECT
-          task_id AS taskId,
-          label_id AS labelId
-        FROM task_labels 
-        WHERE task_id = ?`,
+          task_labels.task_id AS taskId,
+          task_labels.label_id AS labelId
+        FROM task_labels
+        INNER JOIN labels
+          ON labels.id = task_labels.label_id
+          AND labels.deleted_at IS NULL
+        WHERE task_labels.task_id = ?`,
       [id.toString()]
     );
     const labels = TaskLabelMapper.toDomain(recordLabels);
@@ -125,7 +132,7 @@ export class SQLiteTaskRepository implements TaskRepository {
   }
 
   async existsByProjectAndTitle(projectId: ProjectId, title: TaskTitle): Promise<boolean> {
-    const record = await this.database.get<{ exists: number }>(
+    const record = await this.database.get<SQLiteExistsRecord>(
       `SELECT EXISTS(
         SELECT 1 
         FROM tasks
@@ -139,15 +146,15 @@ export class SQLiteTaskRepository implements TaskRepository {
   }
 
   async countTasksByProject(projectId: ProjectId): Promise<number> {
-    const record = await this.database.get<{ task_count: number }>(
+    const record = await this.database.get<SQLiteTaskCountRecord>(
       `SELECT 
-            COUNT(*) AS task_count
+            COUNT(*) AS taskCount
         FROM 
             tasks
         WHERE project_id = ?
         AND deleted_at IS NULL;`,
       [projectId.toString()]
     );
-    return record ? record.task_count : 0;
+    return record?.taskCount ?? 0;
   }
 }

@@ -4,7 +4,8 @@ import type { LabelName } from '../../../../../domain/aggregates/label/name.vo';
 import type { LabelRepository } from '../../../../../domain/repositories/label.repository';
 import type { Database } from '../../../database';
 import { SQLiteLabelMapper } from '../../mappers/label.mapper';
-import type { SQLiteLabelRecord } from '../../records/label.record';
+import type { SQLiteLabelRecord } from '../../records/write/label.record';
+import type { SQLiteExistsRecord, SQLiteLabelCountRecord } from '../../records/write/query.record';
 
 export class SQLiteLabelRepository implements LabelRepository {
   constructor(private readonly database: Database) {}
@@ -47,7 +48,7 @@ export class SQLiteLabelRepository implements LabelRepository {
   }
 
   async existsByName(name: LabelName): Promise<boolean> {
-    const record = await this.database.get<{ exists: number }>(
+    const record = await this.database.get<SQLiteExistsRecord>(
       `SELECT EXISTS(
           SELECT 1
           FROM labels
@@ -65,7 +66,7 @@ export class SQLiteLabelRepository implements LabelRepository {
     if (uniqueIds.length === 0) return true;
 
     const placeholders = uniqueIds.map(() => '?').join(', ');
-    const record = await this.database.get<{ labelCount: number }>(
+    const record = await this.database.get<SQLiteLabelCountRecord>(
       `SELECT COUNT(*) AS labelCount
         FROM labels
         WHERE id IN (${placeholders})
