@@ -1,6 +1,11 @@
 import { openDatabaseSync } from 'expo-sqlite';
 import type { Database } from '../../database';
 import { ExpoSQLiteDatabase } from './sqlite.database';
+import { SQLiteCreateProjectsMigration } from '../migrations/001_create_projects.migration';
+import { SQLiteCreateTasksMigration } from '../migrations/002_create_tasks.migration';
+import { SQLiteCreateLabelsMigration } from '../migrations/003_create_labels.migration';
+import { SQLiteCreateTasksLabelsMigration } from '../migrations/004_create_task_labels_migration';
+import { SQLiteAddActiveEntityUniqueIndexesMigration } from '../migrations/005_add_active_entity_unique_indexes.migration';
 import type { SQLiteMigration } from '../migrations/migration';
 
 const sqlite = openDatabaseSync('project-management.db');
@@ -16,7 +21,11 @@ export class SQLiteAppDatabase {
     await this.configureDatabase();
     await this.createMigrationTable();
 
-    for (const migration of this.migrations) {
+    const orderedMigrations = [...this.migrations].sort(
+      (first, second) => first.version - second.version
+    );
+
+    for (const migration of orderedMigrations) {
       const executed = await this.database.get<{ version: number }>(
         `
         SELECT version
@@ -60,3 +69,11 @@ export class SQLiteAppDatabase {
     `);
   }
 }
+
+export const appDatabase = new SQLiteAppDatabase(database, [
+  new SQLiteCreateProjectsMigration(),
+  new SQLiteCreateTasksMigration(),
+  new SQLiteCreateLabelsMigration(),
+  new SQLiteCreateTasksLabelsMigration(),
+  new SQLiteAddActiveEntityUniqueIndexesMigration(),
+]);
