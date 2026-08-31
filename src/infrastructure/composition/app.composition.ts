@@ -44,6 +44,7 @@ import {
   SQLiteTaskInfoRepository,
   SQLiteTaskRepository,
 } from '../persistence/sqlite/repositories';
+import { SystemClock } from '../time/system.clock';
 
 // === Repositories ===
 const projectRepository = new SQLiteProjectRepository(database);
@@ -55,27 +56,30 @@ const getProjectsRepository = new SQLiteGetProjectsRepository(database);
 const projectInfoRepository = new SQLiteProjectInfoRepository(database);
 const taskInfoRepository = new SQLiteTaskInfoRepository(database);
 
+// === Services ===
+const clock = new SystemClock();
+
 // === Command handlers ===
 export const commands = {
   createLabel: new CreateLabelHandler(labelRepository),
-  deleteLabel: new DeleteLabelHandler(labelRepository),
-  createProject: new CreateProjectHandler(projectRepository),
-  startProject: new StartProjectHandler(projectRepository),
-  completeProject: new CompleteProjectHandler(projectRepository),
+  deleteLabel: new DeleteLabelHandler(labelRepository, clock),
+  createProject: new CreateProjectHandler(projectRepository, clock),
+  startProject: new StartProjectHandler(projectRepository, clock),
+  completeProject: new CompleteProjectHandler(projectRepository, clock),
   reopenProject: new ReopenProjectHandler(projectRepository),
   archiveProject: new ArchiveProjectHandler(projectRepository),
-  deleteProject: new DeleteProjectHandler(projectRepository),
+  deleteProject: new DeleteProjectHandler(projectRepository, clock),
   renameProject: new RenameProjectHandler(projectRepository),
   modifyProjectDescription: new ModifyProjectDescriptionHandler(projectRepository),
   modifyProjectCategory: new ModifyProjectCategoryHandler(projectRepository),
   modifyProjectIcon: new ModifyProjectIconHandler(projectRepository),
   modifyProjectColor: new ModifyProjectColorHandler(projectRepository),
-  createTask: new CreateTaskHandler(taskRepository, projectRepository, labelRepository),
-  startTask: new StartTaskHandler(taskRepository),
-  completeTask: new CompleteTaskHandler(taskRepository),
+  createTask: new CreateTaskHandler(taskRepository, projectRepository, labelRepository, clock),
+  startTask: new StartTaskHandler(taskRepository, clock),
+  completeTask: new CompleteTaskHandler(taskRepository, clock),
   reopenTask: new ReopenTaskHandler(taskRepository),
   archiveTask: new ArchiveTaskHandler(taskRepository),
-  deleteTask: new DeleteTaskHandler(taskRepository),
+  deleteTask: new DeleteTaskHandler(taskRepository, clock),
   renameTask: new RenameTaskHandler(taskRepository),
 } as const;
 

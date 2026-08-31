@@ -14,6 +14,6 @@ export class ModifyProjectDescriptionHandler {
     if (!project) throw new Error('Project does not exist');
 
     project.modifyDescription(description);
-    return this.projectRepository.save(project);
+    await this.projectRepository.save(project);
   }
 }

@@ -7,6 +7,7 @@ import { TaskTitle } from '../../../../domain/aggregates/task/title.vo';
 import type { LabelRepository } from '../../../../domain/repositories/label.repository';
 import type { ProjectRepository } from '../../../../domain/repositories/project.repository';
 import type { TaskRepository } from '../../../../domain/repositories/task.repository';
+import type { Clock } from '../../../ports/clock';
 import type { CreateTaskCommand } from './command';
 
 export class CreateTaskHandler {
@@ -14,7 +15,8 @@ export class CreateTaskHandler {
   constructor(
     private readonly taskRepository: TaskRepository,
     private readonly projectRepository: ProjectRepository,
-    private readonly labelRepository: LabelRepository
+    private readonly labelRepository: LabelRepository,
+    private readonly clock: Clock
   ) {}
 
   async execute(command: CreateTaskCommand): Promise<void> {
@@ -43,7 +45,7 @@ export class CreateTaskHandler {
     const validLabels = await this.labelRepository.existsAll(labelsIds);
     if (!validLabels) throw new Error('Some labels do not exist');
 
-    const task = Task.new(projectId, title, priority, labelsIds, description);
-    return this.taskRepository.save(task);
+    const task = Task.new(projectId, title, priority, labelsIds, description, this.clock.now());
+    await this.taskRepository.save(task);
   }
 }

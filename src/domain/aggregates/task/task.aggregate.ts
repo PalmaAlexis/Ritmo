@@ -29,11 +29,11 @@ export class Task {
 
     this.startedAt = null;
   }
-  start(): void {
+  start(startedAt: Date): void {
     this.ensureIsStarted();
     this.status = TaskStatus.InProgress();
 
-    this.startedAt = new Date();
+    this.startedAt = startedAt;
   }
   reopen(): void {
     this.ensureIsReopened();
@@ -42,20 +42,20 @@ export class Task {
     this.startedAt = null;
     this.finishedAt = null;
   }
-  complete(): void {
+  complete(finishedAt: Date): void {
     this.ensureIsDone();
     this.status = TaskStatus.Done();
 
-    this.finishedAt = new Date();
+    this.finishedAt = finishedAt;
   }
   archive(): void {
     this.ensureIsArchived();
     this.status = TaskStatus.Archived();
   }
-  delete(): void {
+  delete(deletedAt: Date): void {
     this.ensureIsDeleted();
     this.status = TaskStatus.Deleted();
-    this.deletedAt = new Date();
+    this.deletedAt = deletedAt;
   }
   rename(title: TaskTitle): void {
     this.ensureIsModified();
@@ -131,7 +131,8 @@ export class Task {
     title: TaskTitle,
     priority: TaskPriority,
     labelsIds: LabelId[],
-    description: TaskDescription
+    description: TaskDescription,
+    createdAt: Date
   ): Task {
     const validLabelsIds = Task.validateLabels(labelsIds);
     return new Task(
@@ -140,7 +141,7 @@ export class Task {
       title,
       TaskStatus.ToDo(),
       priority,
-      new Date(),
+      createdAt,
       null,
       null,
       null,

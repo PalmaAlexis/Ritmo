@@ -13,16 +13,16 @@ export class RenameTaskHandler {
     const task = await this.taskRepository.findById(id);
     if (!task) throw new Error('Task does not exist');
 
-    // === Nothing to do ===
-    if (task.hasTitle(title)) return;
-    // === No duplicated tasks by title ===
-    const duplicated = await this.taskRepository.existsByProjectAndTitle(
-      task.getProjectId(),
-      title
-    );
-    if (duplicated) throw new Error(`Task with title: ${title.toString()}, already exists`);
+    if (!task.hasTitle(title)) {
+      // === No duplicated tasks by title ===
+      const duplicated = await this.taskRepository.existsByProjectAndTitle(
+        task.getProjectId(),
+        title
+      );
+      if (duplicated) throw new Error(`Task with title: ${title.toString()}, already exists`);
 
-    task.rename(title);
-    return this.taskRepository.save(task);
+      task.rename(title);
+      await this.taskRepository.save(task);
+    }
   }
 }

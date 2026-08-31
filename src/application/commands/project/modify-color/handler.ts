@@ -14,6 +14,6 @@ export class ModifyProjectColorHandler {
     if (!project) throw new Error('Project does not exist');
 
     project.changeColor(color);
-    return this.projectRepository.save(project);
+    await this.projectRepository.save(project);
   }
 }

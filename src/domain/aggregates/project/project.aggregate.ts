@@ -29,17 +29,17 @@ export class Project {
 
     this.startedAt = null;
   }
-  start(): void {
+  start(startedAt: Date): void {
     this.ensureIsStarted();
     this.status = ProjectStatus.InProgress();
 
-    this.startedAt = new Date();
+    this.startedAt = startedAt;
   }
-  complete(): void {
+  complete(finishedAt: Date): void {
     this.ensureIsDone();
     this.status = ProjectStatus.Done();
 
-    this.finishedAt = new Date();
+    this.finishedAt = finishedAt;
   }
   archive(): void {
     this.ensureIsArchived();
@@ -52,10 +52,10 @@ export class Project {
     this.startedAt = null;
     this.finishedAt = null;
   }
-  delete(): void {
+  delete(deletedAt: Date): void {
     this.ensureIsDeleted();
     this.status = ProjectStatus.Deleted();
-    this.deletedAt = new Date();
+    this.deletedAt = deletedAt;
   }
   rename(title: ProjectTitle): void {
     this.ensureIsModified();
@@ -124,13 +124,14 @@ export class Project {
     description: ProjectDescription,
     category: ProjectCategory,
     icon: ProjectIcon,
-    color: ProjectColor
+    color: ProjectColor,
+    createdAt: Date
   ): Project {
     return new Project(
       ProjectId.new(),
       title,
       ProjectStatus.ToDo(),
-      new Date(),
+      createdAt,
       null,
       null,
       null,
