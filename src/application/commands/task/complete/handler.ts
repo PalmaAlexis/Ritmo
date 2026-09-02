@@ -1,21 +1,28 @@
+import { CompletionEvent } from '../../../../domain/aggregates/completion-event/completion-event.aggregate';
 import { TaskId } from '../../../../domain/aggregates/task/id.vo';
-import type { TaskRepository } from '../../../../domain/repositories/task.repository';
 import type { Clock } from '../../../ports/clock';
+import type { TaskCompletionUnitOfWork } from '../../../ports/task-completion-unit-of-work';
 import type { CompleteTaskCommand } from './command';
 
 export class CompleteTaskHandler {
   constructor(
-    private readonly taskRepository: TaskRepository,
+    private readonly unitOfWork: TaskCompletionUnitOfWork,
     private readonly clock: Clock
   ) {}
 
   async execute(command: CompleteTaskCommand): Promise<void> {
     const id = TaskId.from(command.id);
 
-    const task = await this.taskRepository.findById(id);
-    if (!task) throw new Error('Task does not exist');
+    await this.unitOfWork.execute(async ({ taskRepository, completionEventRepository }) => {
+      const task = await taskRepository.findById(id);
+      if (!task) throw new Error('Task does not exist');
 
-    task.complete(this.clock.now());
-    await this.taskRepository.save(task);
+      const completedAt = this.clock.now();
+      task.complete(completedAt);
+
+      const event = CompletionEvent.new(id, completedAt);
+      await taskRepository.save(task);
+      await completionEventRepository.append(event);
+    });
   }
 }
