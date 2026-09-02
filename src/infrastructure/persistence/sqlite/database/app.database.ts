@@ -6,6 +6,7 @@ import { SQLiteCreateTasksMigration } from '../migrations/002_create_tasks.migra
 import { SQLiteCreateLabelsMigration } from '../migrations/003_create_labels.migration';
 import { SQLiteCreateTasksLabelsMigration } from '../migrations/004_create_task_labels_migration';
 import { SQLiteAddActiveEntityUniqueIndexesMigration } from '../migrations/005_add_active_entity_unique_indexes.migration';
+import { SQLiteCreateCompletionEventsMigration } from '../migrations/006_create_completion_events.migration';
 import type { SQLiteMigration } from '../migrations/migration';
 
 const sqlite = openDatabaseSync('project-management.db');
@@ -76,4 +77,5 @@ export const appDatabase = new SQLiteAppDatabase(database, [
   new SQLiteCreateLabelsMigration(),
   new SQLiteCreateTasksLabelsMigration(),
   new SQLiteAddActiveEntityUniqueIndexesMigration(),
+  new SQLiteCreateCompletionEventsMigration(),
 ]);
