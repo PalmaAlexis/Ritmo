@@ -1,4 +1,4 @@
-import { StringUtils } from '../../../../shared/utils/string-utils';
+import { StringUtils } from '@/shared/utils/string-utils';
 
 export class Title {
   private static MAX_LENGTH = 24;

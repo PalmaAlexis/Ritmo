@@ -1,4 +1,4 @@
-import { ProjectColorValues } from '../../../shared/project-ui/color';
+import { ProjectColorValues } from '@/shared/project-ui/color';
 
 export class ProjectColor {
   private constructor(private value: ProjectColorValues) {}

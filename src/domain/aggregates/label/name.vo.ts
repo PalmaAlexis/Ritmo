@@ -1,4 +1,4 @@
-import { StringUtils } from '../../../shared/utils/string-utils';
+import { StringUtils } from '@/shared/utils/string-utils';
 
 export class LabelName {
   private static MAX_LENGTH = 10;

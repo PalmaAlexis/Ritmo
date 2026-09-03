@@ -1,4 +1,4 @@
-import { TaskPriorityValues } from '../../../shared/task/priority';
+import { TaskPriorityValues } from '@/shared/task/priority';
 
 export class TaskPriority {
   private constructor(private value: TaskPriorityValues) {}

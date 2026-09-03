@@ -1,4 +1,4 @@
-import { StringUtils } from '../../../../shared/utils/string-utils';
+import { StringUtils } from '@/shared/utils/string-utils';
 
 export class Identifier {
   protected constructor(private value: string) {}

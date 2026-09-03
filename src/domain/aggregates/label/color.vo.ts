@@ -1,4 +1,4 @@
-import { LabelColorValues } from '../../../shared/label-ui/color';
+import { LabelColorValues } from '@/shared/label-ui/color';
 
 export class LabelColor {
   private constructor(private value: LabelColorValues) {}

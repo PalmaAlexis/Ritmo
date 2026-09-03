@@ -1,4 +1,4 @@
-import { TaskStatusValues } from '../../../shared/task/status';
+import { TaskStatusValues } from '@/shared/task/status';
 
 export class TaskStatus {
   private constructor(private value: TaskStatusValues) {}

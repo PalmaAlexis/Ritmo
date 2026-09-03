@@ -1,4 +1,4 @@
-import { ProjectStatusValues } from '../../../shared/project/status';
+import { ProjectStatusValues } from '@/shared/project/status';
 
 export class ProjectStatus {
   private constructor(private value: ProjectStatusValues) {}
