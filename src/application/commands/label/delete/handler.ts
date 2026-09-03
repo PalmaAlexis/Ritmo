@@ -1,5 +1,5 @@
-import { LabelId } from '../../../../domain/aggregates/label/id.vo';
-import type { LabelRepository } from '../../../../domain/repositories/label.repository';
+import { LabelId } from '@/domain/aggregates/label/id.vo';
+import type { LabelRepository } from '@/domain/repositories/label.repository';
 import type { Clock } from '../../../ports/clock';
 import type { DeleteLabelCommand } from './command';
 

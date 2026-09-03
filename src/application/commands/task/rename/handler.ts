@@ -1,6 +1,6 @@
-import { TaskId } from '../../../../domain/aggregates/task/id.vo';
-import { TaskTitle } from '../../../../domain/aggregates/task/title.vo';
-import type { TaskRepository } from '../../../../domain/repositories/task.repository';
+import { TaskId } from '@/domain/aggregates/task/id.vo';
+import { TaskTitle } from '@/domain/aggregates/task/title.vo';
+import type { TaskRepository } from '@/domain/repositories/task.repository';
 import type { RenameTaskCommand } from './command';
 
 export class RenameTaskHandler {

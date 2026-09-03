@@ -1,6 +1,6 @@
-import { ProjectCategory } from '../../../../domain/aggregates/project/category.vo';
-import { ProjectId } from '../../../../domain/aggregates/project/id.vo';
-import type { ProjectRepository } from '../../../../domain/repositories/project.repository';
+import { ProjectCategory } from '@/domain/aggregates/project/category.vo';
+import { ProjectId } from '@/domain/aggregates/project/id.vo';
+import type { ProjectRepository } from '@/domain/repositories/project.repository';
 import type { ModifyProjectCategoryCommand } from './command';
 
 export class ModifyProjectCategoryHandler {

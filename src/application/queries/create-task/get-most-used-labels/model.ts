@@ -1,4 +1,4 @@
-import type { LabelColorValues } from '../../../../shared/label-ui/color';
+import type { LabelColorValues } from '@/shared/label-ui/color';
 
 interface LabelModel {
   id: string;

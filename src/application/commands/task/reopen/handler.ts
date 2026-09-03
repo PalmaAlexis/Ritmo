@@ -1,5 +1,5 @@
-import { TaskId } from '../../../../domain/aggregates/task/id.vo';
-import type { TaskRepository } from '../../../../domain/repositories/task.repository';
+import { TaskId } from '@/domain/aggregates/task/id.vo';
+import type { TaskRepository } from '@/domain/repositories/task.repository';
 import type { ReopenTaskCommand } from './command';
 
 export class ReopenTaskHandler {

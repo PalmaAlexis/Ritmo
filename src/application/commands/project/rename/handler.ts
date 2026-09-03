@@ -1,6 +1,6 @@
-import { ProjectId } from '../../../../domain/aggregates/project/id.vo';
-import { ProjectTitle } from '../../../../domain/aggregates/project/title.vo';
-import type { ProjectRepository } from '../../../../domain/repositories/project.repository';
+import { ProjectId } from '@/domain/aggregates/project/id.vo';
+import { ProjectTitle } from '@/domain/aggregates/project/title.vo';
+import type { ProjectRepository } from '@/domain/repositories/project.repository';
 import type { RenameProjectCommand } from './command';
 
 export class RenameProjectHandler {

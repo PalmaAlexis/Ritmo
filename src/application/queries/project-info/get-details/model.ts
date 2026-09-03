@@ -1,6 +1,6 @@
-import type { ProjectColorValues } from '../../../../shared/project-ui/color';
-import type { ProjectIconValues } from '../../../../shared/project-ui/icon';
-import type { ProjectStatusValues } from '../../../../shared/project/status';
+import type { ProjectColorValues } from '@/shared/project-ui/color';
+import type { ProjectIconValues } from '@/shared/project-ui/icon';
+import type { ProjectStatusValues } from '@/shared/project/status';
 
 export interface GetProjectDetailsModel {
   id: string;

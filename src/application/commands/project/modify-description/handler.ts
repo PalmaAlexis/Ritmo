@@ -1,6 +1,6 @@
-import { ProjectDescription } from '../../../../domain/aggregates/project/description.vo';
-import { ProjectId } from '../../../../domain/aggregates/project/id.vo';
-import type { ProjectRepository } from '../../../../domain/repositories/project.repository';
+import { ProjectDescription } from '@/domain/aggregates/project/description.vo';
+import { ProjectId } from '@/domain/aggregates/project/id.vo';
+import type { ProjectRepository } from '@/domain/repositories/project.repository';
 import type { ModifyProjectDescriptionCommand } from './command';
 
 export class ModifyProjectDescriptionHandler {

@@ -1,7 +1,7 @@
-import { LabelColor } from '../../../../domain/aggregates/label/color.vo';
-import { Label } from '../../../../domain/aggregates/label/label.aggregate';
-import { LabelName } from '../../../../domain/aggregates/label/name.vo';
-import type { LabelRepository } from '../../../../domain/repositories/label.repository';
+import { LabelColor } from '@/domain/aggregates/label/color.vo';
+import { Label } from '@/domain/aggregates/label/label.aggregate';
+import { LabelName } from '@/domain/aggregates/label/name.vo';
+import type { LabelRepository } from '@/domain/repositories/label.repository';
 import type { CreateLabelCommand } from './command';
 
 export class CreateLabelHandler {

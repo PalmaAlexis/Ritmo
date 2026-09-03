@@ -1,4 +1,4 @@
-import type { ProjectStatusValues } from '../../../../shared/project/status';
+import type { ProjectStatusValues } from '@/shared/project/status';
 
 interface RecentProjects {
   id: string;

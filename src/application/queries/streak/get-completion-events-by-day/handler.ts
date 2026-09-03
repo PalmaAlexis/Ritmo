@@ -1,4 +1,4 @@
-import { StreakDay } from '../../../../domain/aggregates/completion-event/streak-day.vo';
+import { StreakDay } from '@/domain/aggregates/completion-event/streak-day.vo';
 import type { GetStreakRepository } from '../repositories/get-streak.repository';
 import type { GetCompletionEventsByDayQuery } from './query';
 import type { GetCompletionEventsByDayResponse } from './response';

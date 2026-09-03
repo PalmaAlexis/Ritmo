@@ -1,5 +1,5 @@
-import type { TaskPriorityValues } from '../../../shared/task/priority';
-import type { TaskStatusValues } from '../../../shared/task/status';
+import type { TaskPriorityValues } from '@/shared/task/priority';
+import type { TaskStatusValues } from '@/shared/task/status';
 
 export interface GetTaskInfoModel {
   id: string;

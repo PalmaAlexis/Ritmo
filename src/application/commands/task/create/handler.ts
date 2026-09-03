@@ -1,12 +1,12 @@
-import { LabelId } from '../../../../domain/aggregates/label/id.vo';
-import { ProjectId } from '../../../../domain/aggregates/project/id.vo';
-import { TaskDescription } from '../../../../domain/aggregates/task/description.vo';
-import { TaskPriority } from '../../../../domain/aggregates/task/priority.vo';
-import { Task } from '../../../../domain/aggregates/task/task.aggregate';
-import { TaskTitle } from '../../../../domain/aggregates/task/title.vo';
-import type { LabelRepository } from '../../../../domain/repositories/label.repository';
-import type { ProjectRepository } from '../../../../domain/repositories/project.repository';
-import type { TaskRepository } from '../../../../domain/repositories/task.repository';
+import { LabelId } from '@/domain/aggregates/label/id.vo';
+import { ProjectId } from '@/domain/aggregates/project/id.vo';
+import { TaskDescription } from '@/domain/aggregates/task/description.vo';
+import { TaskPriority } from '@/domain/aggregates/task/priority.vo';
+import { Task } from '@/domain/aggregates/task/task.aggregate';
+import { TaskTitle } from '@/domain/aggregates/task/title.vo';
+import type { LabelRepository } from '@/domain/repositories/label.repository';
+import type { ProjectRepository } from '@/domain/repositories/project.repository';
+import type { TaskRepository } from '@/domain/repositories/task.repository';
 import type { Clock } from '../../../ports/clock';
 import type { CreateTaskCommand } from './command';
 

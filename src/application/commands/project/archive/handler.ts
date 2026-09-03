@@ -1,5 +1,5 @@
-import { ProjectId } from '../../../../domain/aggregates/project/id.vo';
-import type { ProjectRepository } from '../../../../domain/repositories/project.repository';
+import { ProjectId } from '@/domain/aggregates/project/id.vo';
+import type { ProjectRepository } from '@/domain/repositories/project.repository';
 import type { ArchiveProjectCommand } from './command';
 
 export class ArchiveProjectHandler {

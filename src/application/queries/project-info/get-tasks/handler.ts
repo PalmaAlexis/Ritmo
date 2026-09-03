@@ -1,4 +1,4 @@
-import { TaskStatusValues } from '../../../../shared/task/status';
+import { TaskStatusValues } from '@/shared/task/status';
 import type { ProjectInfoRepository } from '../repositories/project-info.repository';
 import type { TasksInfoByProject } from './model';
 import type { GetTasksByProjectQuery } from './query';

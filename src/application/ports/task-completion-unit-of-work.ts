@@ -1,5 +1,5 @@
-import type { CompletionEventRepository } from '../../domain/repositories/completion-event.repository';
-import type { TaskRepository } from '../../domain/repositories/task.repository';
+import type { CompletionEventRepository } from '@/domain/repositories/completion-event.repository';
+import type { TaskRepository } from '@/domain/repositories/task.repository';
 
 export interface TaskCompletionContext {
   taskRepository: TaskRepository;

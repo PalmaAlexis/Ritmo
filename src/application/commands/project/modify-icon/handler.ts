@@ -1,6 +1,6 @@
-import { ProjectIcon } from '../../../../domain/aggregates/project/icon.vo';
-import { ProjectId } from '../../../../domain/aggregates/project/id.vo';
-import type { ProjectRepository } from '../../../../domain/repositories/project.repository';
+import { ProjectIcon } from '@/domain/aggregates/project/icon.vo';
+import { ProjectId } from '@/domain/aggregates/project/id.vo';
+import type { ProjectRepository } from '@/domain/repositories/project.repository';
 import type { ModifyProjectIconCommand } from './command';
 
 export class ModifyProjectIconHandler {

@@ -1,5 +1,5 @@
-import { CompletionEvent } from '../../../../domain/aggregates/completion-event/completion-event.aggregate';
-import { TaskId } from '../../../../domain/aggregates/task/id.vo';
+import { CompletionEvent } from '@/domain/aggregates/completion-event/completion-event.aggregate';
+import { TaskId } from '@/domain/aggregates/task/id.vo';
 import type { Clock } from '../../../ports/clock';
 import type { TaskCompletionUnitOfWork } from '../../../ports/task-completion-unit-of-work';
 import type { CompleteTaskCommand } from './command';

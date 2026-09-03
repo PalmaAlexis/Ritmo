@@ -1,10 +1,10 @@
-import { ProjectCategory } from '../../../../domain/aggregates/project/category.vo';
-import { ProjectColor } from '../../../../domain/aggregates/project/color.vo';
-import { ProjectDescription } from '../../../../domain/aggregates/project/description.vo';
-import { ProjectIcon } from '../../../../domain/aggregates/project/icon.vo';
-import { Project } from '../../../../domain/aggregates/project/project.aggregate';
-import { ProjectTitle } from '../../../../domain/aggregates/project/title.vo';
-import type { ProjectRepository } from '../../../../domain/repositories/project.repository';
+import { ProjectCategory } from '@/domain/aggregates/project/category.vo';
+import { ProjectColor } from '@/domain/aggregates/project/color.vo';
+import { ProjectDescription } from '@/domain/aggregates/project/description.vo';
+import { ProjectIcon } from '@/domain/aggregates/project/icon.vo';
+import { Project } from '@/domain/aggregates/project/project.aggregate';
+import { ProjectTitle } from '@/domain/aggregates/project/title.vo';
+import type { ProjectRepository } from '@/domain/repositories/project.repository';
 import type { Clock } from '../../../ports/clock';
 import type { CreateProjectCommand } from './command';
 
