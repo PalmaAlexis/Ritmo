@@ -1,10 +1,10 @@
-import type { GetRecentProjectsModel } from '../../../../../application/queries/dashboard/get-recent-projects/model';
-import type { GetRecentTasksModel } from '../../../../../application/queries/dashboard/get-recent-tasks/model';
-import type { GetDashboardSummaryModel } from '../../../../../application/queries/dashboard/get-summary/model';
-import type { GetWeeklyCountModel } from '../../../../../application/queries/dashboard/get-weekly-count/model';
-import type { DashboardRepository } from '../../../../../application/queries/dashboard/repositories/dashboard.repository';
-import { ProjectStatusValues } from '../../../../../shared/project/status';
-import { TaskStatusValues } from '../../../../../shared/task/status';
+import type { GetRecentProjectsModel } from '@/application/queries/dashboard/get-recent-projects/model';
+import type { GetRecentTasksModel } from '@/application/queries/dashboard/get-recent-tasks/model';
+import type { GetDashboardSummaryModel } from '@/application/queries/dashboard/get-summary/model';
+import type { GetWeeklyCountModel } from '@/application/queries/dashboard/get-weekly-count/model';
+import type { DashboardRepository } from '@/application/queries/dashboard/repositories/dashboard.repository';
+import { ProjectStatusValues } from '@/shared/project/status';
+import { TaskStatusValues } from '@/shared/task/status';
 import type { Database } from '../../../database';
 import type {
   SQLiteDashboardProjectSummaryRecord,

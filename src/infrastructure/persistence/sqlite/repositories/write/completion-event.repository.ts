@@ -1,5 +1,5 @@
-import type { CompletionEvent } from '../../../../../domain/aggregates/completion-event/completion-event.aggregate';
-import type { CompletionEventRepository } from '../../../../../domain/repositories/completion-event.repository';
+import type { CompletionEvent } from '@/domain/aggregates/completion-event/completion-event.aggregate';
+import type { CompletionEventRepository } from '@/domain/repositories/completion-event.repository';
 import type { Database } from '../../../database';
 import { SQLiteCompletionEventMapper as CompletionEventMapper } from '../../mappers/completion-event.mapper';
 

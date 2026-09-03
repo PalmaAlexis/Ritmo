@@ -1,4 +1,4 @@
-import type { CompletionEvent } from '../../../../domain/aggregates/completion-event/completion-event.aggregate';
+import type { CompletionEvent } from '@/domain/aggregates/completion-event/completion-event.aggregate';
 import type { SQLiteCompletionEventRecord } from '../records/write/completion-event.record';
 
 export class SQLiteCompletionEventMapper {

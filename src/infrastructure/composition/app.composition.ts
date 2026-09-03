@@ -19,7 +19,7 @@ import {
   ReopenTaskHandler,
   StartProjectHandler,
   StartTaskHandler,
-} from '../../application/commands';
+} from '@/application/commands';
 import {
   GetDashboardSummaryHandler,
   GetCompletionEventsByDayHandler,
@@ -36,7 +36,7 @@ import {
   GetTaskInfoHandler,
   GetTasksByProjectHandler,
   GetWeeklyCountHandler,
-} from '../../application/queries';
+} from '@/application/queries';
 import { appDatabase, database } from '../persistence/sqlite/database/app.database';
 import {
   SQLiteCreateTaskRepository,

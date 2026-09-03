@@ -1,7 +1,7 @@
-import type { ProjectId } from '../../../../../domain/aggregates/project/id.vo';
-import type { Project } from '../../../../../domain/aggregates/project/project.aggregate';
-import type { ProjectTitle } from '../../../../../domain/aggregates/project/title.vo';
-import type { ProjectRepository } from '../../../../../domain/repositories/project.repository';
+import type { ProjectId } from '@/domain/aggregates/project/id.vo';
+import type { Project } from '@/domain/aggregates/project/project.aggregate';
+import type { ProjectTitle } from '@/domain/aggregates/project/title.vo';
+import type { ProjectRepository } from '@/domain/repositories/project.repository';
 import type { Database } from '../../../database';
 import { SQLiteProjectMapper } from '../../mappers/project.mapper';
 import type { SQLiteProjectRecord } from '../../records/write/project.record';

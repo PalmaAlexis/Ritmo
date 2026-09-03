@@ -1,9 +1,9 @@
-import type { GetProjectBasicInfoModel } from '../../../../../application/queries/project-info/get-basic-info/model';
-import type { GetProjectDetailsModel } from '../../../../../application/queries/project-info/get-details/model';
-import type { GetProjectStatsModel } from '../../../../../application/queries/project-info/get-stats/model';
-import type { GetTasksByProjectModel } from '../../../../../application/queries/project-info/get-tasks/model';
-import type { ProjectInfoRepository } from '../../../../../application/queries/project-info/repositories/project-info.repository';
-import { TaskStatusValues } from '../../../../../shared/task/status';
+import type { GetProjectBasicInfoModel } from '@/application/queries/project-info/get-basic-info/model';
+import type { GetProjectDetailsModel } from '@/application/queries/project-info/get-details/model';
+import type { GetProjectStatsModel } from '@/application/queries/project-info/get-stats/model';
+import type { GetTasksByProjectModel } from '@/application/queries/project-info/get-tasks/model';
+import type { ProjectInfoRepository } from '@/application/queries/project-info/repositories/project-info.repository';
+import { TaskStatusValues } from '@/shared/task/status';
 import type { Database } from '../../../database';
 import type {
   SQLiteProjectBasicInfoRecord,

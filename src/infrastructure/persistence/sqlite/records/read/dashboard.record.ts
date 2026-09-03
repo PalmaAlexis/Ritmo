@@ -1,6 +1,6 @@
-import type { ProjectStatusValues } from '../../../../../shared/project/status';
-import type { TaskPriorityValues } from '../../../../../shared/task/priority';
-import type { TaskStatusValues } from '../../../../../shared/task/status';
+import type { ProjectStatusValues } from '@/shared/project/status';
+import type { TaskPriorityValues } from '@/shared/task/priority';
+import type { TaskStatusValues } from '@/shared/task/status';
 
 export interface SQLiteDashboardProjectSummaryRecord {
   activeProjects: number;

@@ -1,7 +1,7 @@
-import type { LabelId } from '../../../../../domain/aggregates/label/id.vo';
-import type { Label } from '../../../../../domain/aggregates/label/label.aggregate';
-import type { LabelName } from '../../../../../domain/aggregates/label/name.vo';
-import type { LabelRepository } from '../../../../../domain/repositories/label.repository';
+import type { LabelId } from '@/domain/aggregates/label/id.vo';
+import type { Label } from '@/domain/aggregates/label/label.aggregate';
+import type { LabelName } from '@/domain/aggregates/label/name.vo';
+import type { LabelRepository } from '@/domain/repositories/label.repository';
 import type { Database } from '../../../database';
 import { SQLiteLabelMapper } from '../../mappers/label.mapper';
 import type { SQLiteLabelRecord } from '../../records/write/label.record';

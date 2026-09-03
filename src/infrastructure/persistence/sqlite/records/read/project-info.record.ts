@@ -1,8 +1,8 @@
-import type { ProjectColorValues } from '../../../../../shared/project-ui/color';
-import type { ProjectIconValues } from '../../../../../shared/project-ui/icon';
-import type { ProjectStatusValues } from '../../../../../shared/project/status';
-import type { TaskPriorityValues } from '../../../../../shared/task/priority';
-import type { TaskStatusValues } from '../../../../../shared/task/status';
+import type { ProjectColorValues } from '@/shared/project-ui/color';
+import type { ProjectIconValues } from '@/shared/project-ui/icon';
+import type { ProjectStatusValues } from '@/shared/project/status';
+import type { TaskPriorityValues } from '@/shared/task/priority';
+import type { TaskStatusValues } from '@/shared/task/status';
 
 export interface SQLiteProjectBasicInfoRecord {
   id: string;

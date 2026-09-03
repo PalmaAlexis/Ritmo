@@ -1,8 +1,8 @@
-import type { GetCompletionEventsByDayModel } from '../../../../../application/queries/streak/get-completion-events-by-day/model';
-import type { GetCurrentStreakModel } from '../../../../../application/queries/streak/get-current/model';
-import type { GetStreakHistoricalModel } from '../../../../../application/queries/streak/get-historical/model';
-import type { GetStreakSummaryModel } from '../../../../../application/queries/streak/get-summary/model';
-import type { GetStreakRepository } from '../../../../../application/queries/streak/repositories/get-streak.repository';
+import type { GetCompletionEventsByDayModel } from '@/application/queries/streak/get-completion-events-by-day/model';
+import type { GetCurrentStreakModel } from '@/application/queries/streak/get-current/model';
+import type { GetStreakHistoricalModel } from '@/application/queries/streak/get-historical/model';
+import type { GetStreakSummaryModel } from '@/application/queries/streak/get-summary/model';
+import type { GetStreakRepository } from '@/application/queries/streak/repositories/get-streak.repository';
 import type { Database } from '../../../database';
 import type {
   SQLiteCompletionEventByDayRecord,

@@ -1,7 +1,7 @@
 import type {
   TaskCompletionContext,
   TaskCompletionUnitOfWork,
-} from '../../../../application/ports/task-completion-unit-of-work';
+} from '@/application/ports/task-completion-unit-of-work';
 import type { Database } from '../../database';
 import { SQLiteCompletionEventRepository } from '../repositories/write/completion-event.repository';
 import { SQLiteTaskRepository } from '../repositories/write/task.repository';

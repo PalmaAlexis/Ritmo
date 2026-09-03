@@ -1,5 +1,5 @@
-import type { GetMostUsedLabelsModel } from '../../../../../application/queries/create-task/get-most-used-labels/model';
-import type { CreateTaskRepository } from '../../../../../application/queries/create-task/repositories/create-task.repository';
+import type { GetMostUsedLabelsModel } from '@/application/queries/create-task/get-most-used-labels/model';
+import type { CreateTaskRepository } from '@/application/queries/create-task/repositories/create-task.repository';
 import type { Database } from '../../../database';
 import type { SQLiteMostUsedLabelRecord } from '../../records/read/create-task.record';
 

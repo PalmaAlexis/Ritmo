@@ -1,7 +1,7 @@
-import { LabelColor } from '../../../../domain/aggregates/label/color.vo';
-import { LabelId } from '../../../../domain/aggregates/label/id.vo';
-import { Label } from '../../../../domain/aggregates/label/label.aggregate';
-import { LabelName } from '../../../../domain/aggregates/label/name.vo';
+import { LabelColor } from '@/domain/aggregates/label/color.vo';
+import { LabelId } from '@/domain/aggregates/label/id.vo';
+import { Label } from '@/domain/aggregates/label/label.aggregate';
+import { LabelName } from '@/domain/aggregates/label/name.vo';
 import type { SQLiteLabelRecord } from '../records/write/label.record';
 
 export class SQLiteLabelMapper {

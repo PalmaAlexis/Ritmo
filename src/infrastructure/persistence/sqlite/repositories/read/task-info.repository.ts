@@ -1,5 +1,5 @@
-import type { GetTaskInfoModel } from '../../../../../application/queries/task-info/model';
-import type { TaskInfoRepository } from '../../../../../application/queries/task-info/task-info.repository';
+import type { GetTaskInfoModel } from '@/application/queries/task-info/model';
+import type { TaskInfoRepository } from '@/application/queries/task-info/task-info.repository';
 import type { Database } from '../../../database';
 import type {
   SQLiteTaskInfoLabelRecord,

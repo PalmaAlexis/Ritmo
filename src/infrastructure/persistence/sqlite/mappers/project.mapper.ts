@@ -1,11 +1,11 @@
-import { ProjectCategory } from '../../../../domain/aggregates/project/category.vo';
-import { ProjectColor } from '../../../../domain/aggregates/project/color.vo';
-import { ProjectDescription } from '../../../../domain/aggregates/project/description.vo';
-import { ProjectIcon } from '../../../../domain/aggregates/project/icon.vo';
-import { ProjectId } from '../../../../domain/aggregates/project/id.vo';
-import { ProjectStatus } from '../../../../domain/aggregates/project/status.vo';
-import { ProjectTitle } from '../../../../domain/aggregates/project/title.vo';
-import { Project } from '../../../../domain/aggregates/project/project.aggregate';
+import { ProjectCategory } from '@/domain/aggregates/project/category.vo';
+import { ProjectColor } from '@/domain/aggregates/project/color.vo';
+import { ProjectDescription } from '@/domain/aggregates/project/description.vo';
+import { ProjectIcon } from '@/domain/aggregates/project/icon.vo';
+import { ProjectId } from '@/domain/aggregates/project/id.vo';
+import { ProjectStatus } from '@/domain/aggregates/project/status.vo';
+import { ProjectTitle } from '@/domain/aggregates/project/title.vo';
+import { Project } from '@/domain/aggregates/project/project.aggregate';
 import type { SQLiteProjectRecord } from '../records/write/project.record';
 
 export class SQLiteProjectMapper {

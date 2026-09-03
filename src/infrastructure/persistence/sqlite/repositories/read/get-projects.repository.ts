@@ -1,7 +1,7 @@
-import type { GetProjectsModel } from '../../../../../application/queries/get-projects/model';
-import type { GetProjectsRepository } from '../../../../../application/queries/get-projects/get-projects.repository';
-import type { ProjectStatusValues } from '../../../../../shared/project/status';
-import { TaskStatusValues } from '../../../../../shared/task/status';
+import type { GetProjectsModel } from '@/application/queries/get-projects/model';
+import type { GetProjectsRepository } from '@/application/queries/get-projects/get-projects.repository';
+import type { ProjectStatusValues } from '@/shared/project/status';
+import { TaskStatusValues } from '@/shared/task/status';
 import type { Database } from '../../../database';
 import type { SQLiteProjectListItemRecord } from '../../records/read/get-projects.record';
 

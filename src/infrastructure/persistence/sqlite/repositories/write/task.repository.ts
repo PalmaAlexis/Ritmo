@@ -1,8 +1,8 @@
-import type { ProjectId } from '../../../../../domain/aggregates/project/id.vo';
-import type { TaskId } from '../../../../../domain/aggregates/task/id.vo';
-import type { Task } from '../../../../../domain/aggregates/task/task.aggregate';
-import type { TaskTitle } from '../../../../../domain/aggregates/task/title.vo';
-import type { TaskRepository } from '../../../../../domain/repositories/task.repository';
+import type { ProjectId } from '@/domain/aggregates/project/id.vo';
+import type { TaskId } from '@/domain/aggregates/task/id.vo';
+import type { Task } from '@/domain/aggregates/task/task.aggregate';
+import type { TaskTitle } from '@/domain/aggregates/task/title.vo';
+import type { TaskRepository } from '@/domain/repositories/task.repository';
 import type { Database } from '../../../database';
 import { SQLiteTaskLabelMapper as TaskLabelMapper } from '../../mappers/task-label.mapper';
 import { SQLiteTaskMapper as TaskMapper } from '../../mappers/task.mapper';

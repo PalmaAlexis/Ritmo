@@ -1,5 +1,5 @@
-import { LabelId } from '../../../../domain/aggregates/label/id.vo';
-import type { TaskId } from '../../../../domain/aggregates/task/id.vo';
+import { LabelId } from '@/domain/aggregates/label/id.vo';
+import type { TaskId } from '@/domain/aggregates/task/id.vo';
 import type { SQLiteTaskLabelRecord } from '../records/write/task-label.record';
 
 export class SQLiteTaskLabelMapper {
