@@ -1,7 +1,7 @@
+import { appComposition } from '@/infrastructure/composition/app.composition';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import { appComposition } from './src/infrastructure/composition/app.composition';
 
 export default function App() {
   const [databaseError, setDatabaseError] = useState<Error | null>(null);
@@ -47,7 +47,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <Text>Hi, </Text>
       <StatusBar style='auto' />
     </View>
   );

@@ -2,6 +2,7 @@
   "expo": {
     "name": "Ritmo",
     "slug": "ritmo",
+    "scheme": "ritmo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,6 +22,9 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-sqlite"]
+    "plugins": ["expo-sqlite", "expo-router", "expo-status-bar"],
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }
