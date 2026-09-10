@@ -1,5 +1,7 @@
 # Dashboard implementation report
 
+This report describes the initial Dashboard implementation. Supporting panels have since been separated into routes and shared components; see [Screen separation](./screens.md) for the current file map, navigation behavior, and validation results.
+
 Implemented the native Dashboard from `docs/design/prototypes/ritmo_tasks_projects_v2.html`, specifically `#screen-home`. The existing application handlers and SQLite composition remain the data boundary; presentation never imports repositories, infrastructure, or network clients.
 
 ## Delivered behavior
