@@ -6,8 +6,9 @@ export class GetRecentProjectsHandler {
   constructor(private readonly dashboardReadRepository: DashboardRepository) {}
 
   async execute(query: GetRecentProjectsQuery): Promise<GetRecentProjectsResponse> {
-    const recentProjects = (await this.dashboardReadRepository.getRecentProjects(query.limit))
-      .projects;
+    const recentProjects = (
+      await this.dashboardReadRepository.getRecentProjects(query.limit, query.activeOnly)
+    ).projects;
 
     return {
       projects: recentProjects.map((project) => {
@@ -19,6 +20,8 @@ export class GetRecentProjectsHandler {
           id: project.id,
           title: project.title,
           category: project.category,
+          color: project.color,
+          icon: project.icon,
           status: project.status,
           allTasksCount: project.allTasksCount,
           completedTasksPercentage: percentage,
