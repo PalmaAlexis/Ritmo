@@ -1,6 +1,7 @@
 import {
   ArchiveProjectHandler,
   ArchiveTaskHandler,
+  CheckTaskHandler,
   CompleteProjectHandler,
   CompleteTaskHandler,
   CreateLabelHandler,
@@ -50,6 +51,7 @@ import {
   SQLiteTaskRepository,
 } from '../persistence/sqlite/repositories';
 import { SQLiteTaskCompletionUnitOfWork } from '../persistence/sqlite/unit-of-work/task-completion.unit-of-work';
+import { initializeCrypto } from '../runtime/initialize-crypto';
 import { SystemClock } from '../time/system.clock';
 
 // === Repositories ===
@@ -85,6 +87,7 @@ export const commands = {
   createTask: new CreateTaskHandler(taskRepository, projectRepository, labelRepository, clock),
   startTask: new StartTaskHandler(taskRepository, clock),
   completeTask: new CompleteTaskHandler(taskCompletionUnitOfWork, clock),
+  checkTask: new CheckTaskHandler(taskCompletionUnitOfWork, clock),
   reopenTask: new ReopenTaskHandler(taskRepository),
   archiveTask: new ArchiveTaskHandler(taskRepository),
   deleteTask: new DeleteTaskHandler(taskRepository, clock),
@@ -111,7 +114,10 @@ export const queries = {
 } as const;
 
 export const appComposition = {
-  initialize: (): Promise<void> => appDatabase.initialize(),
+  initialize: async (): Promise<void> => {
+    initializeCrypto();
+    await appDatabase.initialize();
+  },
   commands,
   queries,
 } as const;
