@@ -12,6 +12,7 @@ export { RenameProjectHandler } from './project/rename/handler';
 export { ReopenProjectHandler } from './project/reopen/handler';
 export { StartProjectHandler } from './project/start/handler';
 export { ArchiveTaskHandler } from './task/archive/handler';
+export { CheckTaskHandler } from './task/check/handler';
 export { CompleteTaskHandler } from './task/complete/handler';
 export { CreateTaskHandler } from './task/create/handler';
 export { DeleteTaskHandler } from './task/delete/handler';

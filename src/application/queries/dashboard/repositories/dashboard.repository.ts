@@ -6,6 +6,6 @@ import type { GetWeeklyCountModel } from '../get-weekly-count/model';
 export interface DashboardRepository {
   getSummary(): Promise<GetDashboardSummaryModel>;
   getWeeklyCount(): Promise<GetWeeklyCountModel>;
-  getRecentProjects(limit: number): Promise<GetRecentProjectsModel>;
+  getRecentProjects(limit: number, activeOnly?: boolean): Promise<GetRecentProjectsModel>;
   getRecentTasks(limit: number): Promise<GetRecentTasksModel>;
 }
