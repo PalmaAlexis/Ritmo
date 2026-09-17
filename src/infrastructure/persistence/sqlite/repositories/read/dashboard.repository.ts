@@ -74,12 +74,14 @@ export class SQLiteDashboardRepository implements DashboardRepository {
     };
   }
 
-  async getRecentProjects(limit: number): Promise<GetRecentProjectsModel> {
+  async getRecentProjects(limit: number, activeOnly = false): Promise<GetRecentProjectsModel> {
     const records = await this.database.all<SQLiteRecentProjectRecord>(
       `SELECT
           projects.id,
           projects.title,
           projects.category,
+          projects.color,
+          projects.icon,
           projects.status,
           COUNT(tasks.id) AS allTasksCount,
           COALESCE(SUM(CASE WHEN tasks.status = ? THEN 1 ELSE 0 END), 0) AS completedTasksCount
@@ -88,10 +90,15 @@ export class SQLiteDashboardRepository implements DashboardRepository {
           ON tasks.project_id = projects.id
           AND tasks.deleted_at IS NULL
         WHERE projects.deleted_at IS NULL
+        ${activeOnly ? 'AND projects.status IN (?, ?)' : ''}
         GROUP BY projects.id
         ORDER BY projects.created_at DESC
         LIMIT ?`,
-      [TaskStatusValues.done, Math.max(0, Math.trunc(limit))]
+      [
+        TaskStatusValues.done,
+        ...(activeOnly ? [ProjectStatusValues.toDo, ProjectStatusValues.inProgress] : []),
+        Math.max(0, Math.trunc(limit)),
+      ]
     );
 
     return { projects: records };
@@ -100,25 +107,38 @@ export class SQLiteDashboardRepository implements DashboardRepository {
   async getRecentTasks(limit: number): Promise<GetRecentTasksModel> {
     const records = await this.database.all<SQLiteRecentTaskRecord>(
       `SELECT
+          tasks.id,
+          tasks.project_id AS projectId,
           tasks.title,
           projects.title AS projectTitle,
           tasks.started_at AS startedAt,
+          tasks.finished_at AS finishedAt,
           tasks.priority,
           tasks.status
         FROM tasks
         INNER JOIN projects
           ON projects.id = tasks.project_id
           AND projects.deleted_at IS NULL
+          AND projects.status IN (?, ?)
         WHERE tasks.deleted_at IS NULL
+          AND tasks.status IN (?, ?, ?)
         ORDER BY tasks.created_at DESC
         LIMIT ?`,
-      [Math.max(0, Math.trunc(limit))]
+      [
+        ProjectStatusValues.toDo,
+        ProjectStatusValues.inProgress,
+        TaskStatusValues.toDo,
+        TaskStatusValues.inProgress,
+        TaskStatusValues.done,
+        Math.max(0, Math.trunc(limit)),
+      ]
     );
 
     return {
       tasks: records.map((record) => ({
         ...record,
         startedAt: record.startedAt ? new Date(record.startedAt) : null,
+        finishedAt: record.finishedAt ? new Date(record.finishedAt) : null,
       })),
     };
   }
